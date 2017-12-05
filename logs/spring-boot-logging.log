@@ -1,0 +1,22 @@
+2017-11-07 20:57:41.507  INFO 2772 --- [main] com.yang.MtimeApplicationTests           : Starting MtimeApplicationTests on DESKTOP-OJ2EG8N with PID 2772 (started by 13512 in E:\Java_project\mtime)
+2017-11-07 20:57:41.509  INFO 2772 --- [main] com.yang.MtimeApplicationTests           : No active profile set, falling back to default profiles: default
+2017-11-07 20:57:45.323  INFO 2772 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2017-11-07 20:57:45.406  INFO 2772 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.0.12.Final}
+2017-11-07 20:57:45.408  INFO 2772 --- [main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2017-11-07 20:57:45.410  INFO 2772 --- [main] org.hibernate.cfg.Environment            : HHH000021: Bytecode provider name : javassist
+2017-11-07 20:57:45.471  INFO 2772 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2017-11-07 20:57:45.670  INFO 2772 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2017-11-07 20:57:48.968  INFO 2772 --- [main] com.yang.MtimeApplicationTests           : Started MtimeApplicationTests in 8.879 seconds (JVM running for 10.704)
+2017-11-07 20:59:03.471  INFO 9832 --- [main] com.yang.MtimeApplicationTests           : Starting MtimeApplicationTests on DESKTOP-OJ2EG8N with PID 9832 (started by 13512 in E:\Java_project\mtime)
+2017-11-07 20:59:03.472  INFO 9832 --- [main] com.yang.MtimeApplicationTests           : No active profile set, falling back to default profiles: default
+2017-11-07 20:59:08.352  INFO 9832 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2017-11-07 20:59:08.486  INFO 9832 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.0.12.Final}
+2017-11-07 20:59:08.489  INFO 9832 --- [main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2017-11-07 20:59:08.492  INFO 9832 --- [main] org.hibernate.cfg.Environment            : HHH000021: Bytecode provider name : javassist
+2017-11-07 20:59:08.583  INFO 9832 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2017-11-07 20:59:08.911  INFO 9832 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2017-11-07 20:59:13.327  INFO 9832 --- [main] com.yang.MtimeApplicationTests           : Started MtimeApplicationTests in 10.842 seconds (JVM running for 12.586)

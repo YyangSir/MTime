@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>评论管理</title>
+    <meta name="description" content="评论管理页面"/>
+    <meta name="keywords" content="index"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <script src="assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="assets/css/app.css"/>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/angular.js/1.6.3/angular.min.js"></script>
+
+    <script type="text/javascript" src="/js/admin.js"></script>
+</head>
+
+<body data-type="widgets" ng-app="adminApp">
+<script src="assets/js/theme.js"></script>
+<div class="am-g tpl-g">
+    <!-- 侧边导航栏 -->
+    <div class="left-sidebar" ng-controller="adminInfoCtrl">
+        <!-- 菜单 -->
+        <ul class="sidebar-nav">
+            <li class="sidebar-nav-heading">管理员： {{adminname}}</li>
+
+            <li class="sidebar-nav-link">
+                <a href="admin">
+                    <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 电影上传
+                </a>
+            </li>
+
+            <li class="sidebar-nav-link">
+                <a href="javascript:;" class="sidebar-nav-sub-title active">
+                    <i class="am-icon-table sidebar-nav-link-logo"></i> 管理列表
+                    <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico sidebar-nav-sub-ico-rotate"></span>
+                </a>
+                <ul class="sidebar-nav sidebar-nav-sub" style="display: block;">
+                    <li class="sidebar-nav-link">
+                        <a href="admin-movies">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 电影列表
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="" class="sub-active">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 评论列表
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="sidebar-nav-link">
+                <a ng-click="exit()">
+                    <span class="am-icon-sign-out sidebar-nav-link-logo"></span> 退出
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 内容区域 -->
+    <div class="tpl-content-wrapper" ng-controller="remarkCtrl" >
+        <div class="row-content am-cf">
+            <div class="row">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                    <div class="widget am-cf">
+                        <div class="widget-head am-cf">
+                            <div class="widget-title  am-cf">评论列表</div>
+                        </div>
+                        <div class="widget-body  am-fr">
+                            <div class="am-u-sm-12">
+                                <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
+                                    <thead>
+                                    <tr>
+                                        <th>评论</th>
+                                        <th>用户</th>
+                                        <th>时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="gradeX" ng-repeat="remark in remarkList">
+                                        <td width="50%">{{remark.remarkContent}}</td>
+                                        <td>{{remark.userName}}</td>
+                                        <td>{{remark.remarkData}}</td>
+                                        <td>
+                                            <div class="tpl-table-black-operation">
+                                                <a ng-click="deleteremark(remark.remarkId)" class="tpl-table-black-operation-del">
+                                                    <i class="am-icon-trash"></i> 删除
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- more data -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="am-u-lg-12 am-cf">
+                                <div class="am-fr">
+                                    <ul class="am-pagination tpl-pagination">
+                                        <li ng-click="changePage(0)"><a href="">«</a></li>
+
+                                        <li ng-click="changePage(num)" ng-repeat="num in pageNums"
+                                            ng-class="{'am-active':show==={{num}}}">
+                                            <a href="">{{num}}</a>
+                                        </li>
+
+                                        <li ng-click="changePage(999)"><a href="">»</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--弹窗-->
+    <div class="am-modal am-modal-prompt" tabindex="-1" id="delete-confirm">
+        <div class="am-modal-dialog">
+            <div class="am-modal-bd">
+                删除评论？
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel="">取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm="">提交</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="am-modal am-modal-alert" tabindex="-1" id="remark-alert">
+        <div class="am-modal-dialog">
+            <div class="am-modal-bd">
+                评论已删除
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn">确定</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="assets/js/amazeui.min.js"></script>
+<script src="assets/js/amazeui.datatables.min.js"></script>
+<script src="assets/js/dataTables.responsive.min.js"></script>
+<script src="assets/js/app.js"></script>
+
+</body>
+
+</html>
