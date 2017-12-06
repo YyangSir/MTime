@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.yang.entity.Remark;
 import com.yang.service.RemarkService;
 import com.yang.util.Message;
+import org.apache.ibatis.annotations.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,6 +74,16 @@ public class RemarkContrller {
 		return remarks;
 	}
 
+	/**
+	 * 获取用户的评论
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/remark/my_{id}", method = RequestMethod.GET)
+	public List<Remark> getMyRemark(@PathVariable("id") int userId) {
+		List<Remark> remarks=remarkService.getUserRemark(userId);
+		return remarks;
+	}
 	/**
 	 * 管理员删除一条评论
 	 * @param remarkId

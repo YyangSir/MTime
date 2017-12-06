@@ -41,4 +41,11 @@ public interface RemarkService {
 	 * @return
 	 */
 	boolean deleteRemark(int remarkId);
+
+	/**
+	 * 获取用户评论
+	 * @param userId
+	 * @return
+	 */
+	List<Remark> getUserRemark(int userId);
 }

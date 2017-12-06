@@ -35,6 +35,15 @@ public class Remark implements Serializable {
 	 */
 	String userPhoto;
 
+	/**
+	 * 电影名
+	 */
+	String titleCn;
+	/**
+	 * 电影海报
+	 */
+	String img;
+
 	@Override
 	public String toString() {
 		return "Remark{" +
@@ -90,5 +99,21 @@ public class Remark implements Serializable {
 
 	public void setUserPhoto(String userPhoto) {
 		this.userPhoto = userPhoto;
+	}
+
+	public String getTitleCn() {
+		return titleCn;
+	}
+
+	public void setTitleCn(String titleCn) {
+		this.titleCn = titleCn;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 }

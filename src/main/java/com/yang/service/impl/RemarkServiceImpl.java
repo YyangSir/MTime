@@ -39,6 +39,11 @@ public class RemarkServiceImpl implements RemarkService {
 	}
 
 	@Override
+	public List<Remark> getUserRemark(int userId) {
+		return remarkDao.getUserRemark(userId);
+	}
+
+	@Override
 	public PageInfo<Remark> getAllRemark(int pageNo, int pageSize) {
 		//分页
 		PageHelper.startPage(pageNo, pageSize);

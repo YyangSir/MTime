@@ -36,7 +36,8 @@ public class Message {
 		//向前端发送的信息
 		map.put("name", user.getUserName());
 		map.put("img", user.getUserPhoto());
-		map.put("id", user.getUserId()+"0");
+		map.put("id", user.getUserId()+"");
+		map.put("number", user.getUserNumber());
 		return map;
 	}
 

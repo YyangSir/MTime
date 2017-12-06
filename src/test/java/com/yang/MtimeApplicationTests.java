@@ -66,4 +66,12 @@ public class MtimeApplicationTests {
 			System.out.println("success");
 		}
 	}
+
+	@Test
+	public void getUserRemark(){
+		List<Remark> remarks = remarkService.getUserRemark(7);
+		if (remarks.get(0).getTitleCn() != null) {
+			System.out.println(remarks.get(0).getTitleCn());
+		}
+	}
 }

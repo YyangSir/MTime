@@ -1,5 +1,6 @@
 package com.yang.contrller;
 
+import com.yang.entity.Remark;
 import com.yang.entity.User;
 import com.yang.service.UserService;
 import com.yang.util.Message;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Yyang
@@ -26,7 +28,7 @@ public class UserContrller {
 	 * @return
 	 */
 	@RequestMapping(value = "/user/login",method = RequestMethod.POST)
-	public Object login(HttpSession session, User user) {
+	public Map login(HttpSession session, User user) {
 		System.out.println("login...");
 
 		List<User> list = userService.userLogin(user.getUserNumber(), user.getPassword());
@@ -54,7 +56,7 @@ public class UserContrller {
 	 * @return
 	 */
 	@RequestMapping(value = "/user/register",method = RequestMethod.POST)
-	public Object register(HttpSession session, User user) {
+	public Map register(HttpSession session, User user) {
 		System.out.println("Register...");
 		int numberLength = 11;
 		//信息不为空
@@ -83,7 +85,7 @@ public class UserContrller {
 	 * @return msg 重复
 	 */
 	@RequestMapping(value = "/user/checkname",method = RequestMethod.POST)
-	public Object checkname(User user) {
+	public Map checkname(User user) {
 		System.out.println("checkname...");
 		String name = user.getUserName();
 		if (name != null) {
@@ -98,5 +100,32 @@ public class UserContrller {
 		return Message.message(false);
 	}
 
+	/**
+	 * 获取用户信息
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/user/info/{id}", method = RequestMethod.GET)
+	public Map info(@PathVariable("id") String id) {
+		if (id == null || id.isEmpty()) {
+			return Message.message(false);
+		}
+		int userId = Integer.parseInt(id);
+		User user = userService.info(userId);
+		if ( user!= null) {
+			return Message.message(true, user);
+		}
+		return Message.message(false);
+	}
 
+	/**
+	 * 获取用户评论
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/user/remark/{id}", method = RequestMethod.GET)
+	public List<Remark> remarks(@PathVariable("id") String id) {
+		int userId = Integer.parseInt(id);
+		return userService.getUserRemark(userId);
+	}
 }

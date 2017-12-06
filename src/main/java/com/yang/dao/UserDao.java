@@ -1,10 +1,7 @@
 package com.yang.dao;
 
 import com.yang.entity.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -21,6 +18,7 @@ public interface UserDao {
 	 */
 	@Insert("insert into users(userNumber,userName,password,userPhoto)" +
 			"values(#{userNumber},#{userName},#{password},#{userPhoto})")
+	@Options(useGeneratedKeys=true, keyProperty="user.userId")
 	boolean register(User user);
 
 	/**
@@ -39,6 +37,15 @@ public interface UserDao {
 	 */
 	@Select("select * from users where userNumber=#{userNumber} and password=#{password}")
 	List<User> login(@Param("userNumber") String number, @Param("password") String password);
+
+	/**
+	 * 通过id查找用户
+	 * @param userid
+	 * @return
+	 */
+	@Select("select * from users where userId=#{id}")
+	List<User> selectUserById(@Param("id") int userid);
+
 
 	/**
 	 * 修改用户昵称

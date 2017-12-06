@@ -57,7 +57,7 @@ myApp.controller('headerCtrl', function($scope, $http){
 
     $scope.exit=function () {
         console.log("退出登陆");
-        //清楚信息
+        //清除信息
         window.sessionStorage.clear();
         isLogin();
 

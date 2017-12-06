@@ -22,6 +22,7 @@ app.controller('loginCtrl', function($scope, $http) {
                 //session保存
                 window.sessionStorage.setItem("name", ob.name);
                 window.sessionStorage.setItem("img", ob.img);
+                window.sessionStorage.setItem("userid", ob.id);
                 //跳转主页或管理员
                 if("admin"==ob.authority) {
                     window.location.href = 'admin';
@@ -32,7 +33,6 @@ app.controller('loginCtrl', function($scope, $http) {
                 $('#login-alert').modal();
             }
         }, function errorCallback(res) {
-            console.log("error");
             console.log(res);
         });
     }
@@ -62,13 +62,13 @@ app.controller('registerCtrl',function ($scope, $http) {
                     console.log("注册成功");
                     window.sessionStorage.setItem("name", ob.name);
                     window.sessionStorage.setItem("img", ob.img);
+                    window.sessionStorage.setItem("userid", ob.id);
                     window.location.href = 'index';
                 }else {
                     console.log("注册失败");
                     $('#register-alert').modal();
                 }
             }, function errorCallback(res) {
-                console.log("error");
                 console.log(res);
             })
         }
@@ -97,7 +97,6 @@ app.controller('registerCtrl',function ($scope, $http) {
                 }
             }
         },function errorCallback(res) {
-            console.log("error");
             console.log(res);
         })
     })
@@ -112,3 +111,4 @@ app.controller('registerCtrl',function ($scope, $http) {
         $scope.classinput='';
     }
 })
+
