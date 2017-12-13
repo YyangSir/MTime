@@ -107,7 +107,7 @@ myApp.controller('headerCtrl', function($scope, $http){
      * 根据id 前往我的电影页面
      */
     $scope.myInfo=function () {
-
+        window.location.href = "tomy";
     }
 
     $scope.exit=function () {

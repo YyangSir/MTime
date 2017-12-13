@@ -46,8 +46,15 @@
     <div class="am-g">
         <!--用户信息-->
         <div class="am-u-sm-4" style="text-align: center" ng-controller="userCtrl">
-            <img src="/user/{{userimg}}" width="120px" class="am-img-thumbnail am-circle am-center"/>
-            <!--<h5 style="color: #98a6ad;">{{username}} &nbsp; &nbsp;<span class="am-icon-pencil am-icon-sm"></span></h5>-->
+            <!--<img src="/user/{{userimg}}" width="120px" class="am-img-thumbnail am-circle am-center"/>-->
+            <div class="am-form-group am-form-file">
+                <button type="button" style="background: transparent; border-style :none;">
+                    <img src="/user/{{userimg}}" width="120px" height="120px" class="am-img-thumbnail am-circle"/>
+                </button>
+                <input id="doc-form-file" type="file" class="file-upload"
+                       name="files" ng-model="user.userPhoto" onchange ="angular.element(this).scope().uploadUserPhoto()"/>
+            </div>
+
             <h5 style="color: #98a6ad;">昵称：{{username}} </h5>
             <h5 style="color: #98a6ad;">手机：{{number}}</h5>
         </div>
@@ -80,7 +87,8 @@
             已退出登录
         </div>
         <div class="am-modal-footer">
-            <span class="am-modal-btn">确定</span>
+            <span class="am-modal-btn" data-am-modal-cancel="">取消</span>
+            <span class="am-modal-btn" data-am-modal-confirm="">确定</span>
         </div>
     </div>
 </div>

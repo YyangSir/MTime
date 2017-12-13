@@ -3,9 +3,12 @@ package com.yang.contrller;
 import com.yang.entity.Remark;
 import com.yang.entity.User;
 import com.yang.service.UserService;
+import com.yang.util.ImgUtil;
 import com.yang.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -23,7 +26,6 @@ public class UserContrller {
 
 	/**
 	 * 登陆
-	 *
 	 * @param user
 	 * @return
 	 */
@@ -127,5 +129,32 @@ public class UserContrller {
 	public List<Remark> remarks(@PathVariable("id") String id) {
 		int userId = Integer.parseInt(id);
 		return userService.getUserRemark(userId);
+	}
+
+	/**
+	 * 更换头像
+	 * @param img
+	 * @return
+	 */
+	@RequestMapping(value = "/user/UserPhoto", method = RequestMethod.POST,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public Map uploadImg(@RequestParam(value = "img") MultipartFile img,HttpSession session) {
+		if (img == null) {
+			return Message.message(false);
+		}
+
+		//保存图片
+		try {
+			String userPhoto = ImgUtil.savrPhoto(img);
+			if (userPhoto != null) {
+				int id = (int) session.getAttribute("id");
+				if (userService.updateUserPhoto(userPhoto, id)) {
+					return Message.message(true,"userPhoto",userPhoto);
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return Message.message(false);
 	}
 }

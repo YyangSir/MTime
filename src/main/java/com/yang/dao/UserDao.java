@@ -18,7 +18,6 @@ public interface UserDao {
 	 */
 	@Insert("insert into users(userNumber,userName,password,userPhoto)" +
 			"values(#{userNumber},#{userName},#{password},#{userPhoto})")
-	@Options(useGeneratedKeys=true, keyProperty="user.userId")
 	boolean register(User user);
 
 	/**
@@ -63,6 +62,6 @@ public interface UserDao {
 	 * @return 是否修改成功
 	 */
 	@Update("update users set userPhoto=#{userPhoto} where userId=#{userId}")
-	boolean updatePhoto(@Param("userPhoto") String userPhoto, @Param("userId") String userId);
+	boolean updatePhoto(@Param("userPhoto") String userPhoto, @Param("userId") int userId);
 
 }

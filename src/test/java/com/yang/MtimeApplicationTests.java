@@ -3,6 +3,7 @@ package com.yang;
 import com.github.pagehelper.PageInfo;
 import com.yang.entity.Movie;
 import com.yang.entity.Remark;
+import com.yang.entity.User;
 import com.yang.service.MovieSerivce;
 import com.yang.service.RemarkService;
 import com.yang.service.UserService;
@@ -72,6 +73,22 @@ public class MtimeApplicationTests {
 		List<Remark> remarks = remarkService.getUserRemark(7);
 		if (remarks.get(0).getTitleCn() != null) {
 			System.out.println(remarks.get(0).getTitleCn());
+		}
+	}
+
+	@Test
+	public void insterUser() {
+		User user = new User();
+		user.setUserNumber("123456");
+		user.setUserName("test");
+		user.setPassword("123456");
+		System.out.println(userService.register(user).getUserId());
+	}
+
+	@Test
+	public void UserPhoto() {
+		if (userService.updateUserPhoto("head.jpg", 4)) {
+			System.out.println("success");
 		}
 	}
 }

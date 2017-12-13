@@ -31,9 +31,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<Integer> checkname(String name) {
-		if (name == null || name.isEmpty()) {
-			return null;
-		}
 		return userDao.checkname(name);
 	}
 
@@ -42,6 +39,7 @@ public class UserServiceImpl implements UserService {
 		user.setUserPhoto("head.jpg");
 		//注册成功
 		if (userDao.register(user)) {
+			user.setUserId(userDao.checkname(user.getUserName()).get(0));
 			return user;
 		}
 		return null;
@@ -65,5 +63,11 @@ public class UserServiceImpl implements UserService {
 		}
 		return remarks;
 	}
+
+	@Override
+	public boolean updateUserPhoto(String photo, int userId) {
+		return userDao.updatePhoto(photo,userId);
+	}
+
 
 }

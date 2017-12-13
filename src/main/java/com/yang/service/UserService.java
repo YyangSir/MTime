@@ -45,4 +45,12 @@ public interface UserService{
 	 * @return
 	 */
 	List<Remark> getUserRemark(int userid);
+
+	/**
+	 * 更换用户头像
+	 * @param photo
+	 * @param userId
+	 * @return
+	 */
+	boolean updateUserPhoto(String photo,int userId);
 }

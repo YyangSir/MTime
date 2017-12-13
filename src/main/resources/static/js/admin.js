@@ -72,7 +72,7 @@ app.controller('upMovieCtrl',function ($scope, $http) {
 });
 
 /**
- * 查询电影
+ * 电影
  */
 app.controller('moviesCtrl',function ($scope, $http){
     console.log("查询电影")
@@ -194,6 +194,9 @@ app.controller('moviesCtrl',function ($scope, $http){
 
 });
 
+/**
+ * 评论
+ */
 app.controller('remarkCtrl',function ($scope, $http) {
     var postData = {
         pageIndex: 1,
@@ -233,20 +236,20 @@ app.controller('remarkCtrl',function ($scope, $http) {
         if(num==0) {
             if(postData.hasPreviousPage) {
                 changeClass(--postData.pageIndex)
-                GetAllMovies();
+                GetAllRemarks();
             }
         }
         else if(num==999) {
             if(postData.hasNextPage) {
                 changeClass(++postData.pageIndex);
-                GetAllMovies();
+                GetAllRemarks();
             }
 
         }
         else {
             postData.pageIndex = num;
             changeClass(postData.pageIndex);
-            GetAllMovies();
+            GetAllRemarks();
         }
     }
 
@@ -260,6 +263,7 @@ app.controller('remarkCtrl',function ($scope, $http) {
      * @param id
      */
     $scope.deleteremark=function (id) {
+        console.log(id)
 
         $('#delete-confirm').modal({
             relatedTarget: this,
