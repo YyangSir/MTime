@@ -30,6 +30,9 @@ myApp.controller('movieCtrl',function ($scope,$http) {
     })
 })
 
+/**
+ * 评论
+ */
 myApp.controller('remarkCtrl',function ($scope,$http) {
 
     var id=window.sessionStorage.getItem("movieId");
@@ -56,6 +59,7 @@ myApp.controller('remarkCtrl',function ($scope,$http) {
             }
         },function errorCallback(res) {
             console.log(res)
+            $('#errorRemark-alert').modal();
         });
     }
 

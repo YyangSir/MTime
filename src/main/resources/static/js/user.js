@@ -27,7 +27,9 @@ app.controller('loginCtrl', function($scope, $http) {
                 if("admin"==ob.authority) {
                     window.location.href = 'admin';
                 }else {
-                    window.location.href = 'index';
+                    if(window.sessionStorage.getItem("movieId")>0) {
+                        window.location.href = 'toremark';
+                    }else window.location.href = 'index';
                 }
             }else {
                 $('#login-alert').modal();
