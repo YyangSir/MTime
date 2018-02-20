@@ -1,0 +1,23 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.dao.MovieMapper">
+  <resultMap id="MoiveMap" type="com.yang.entity.Movie">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="movieId" jdbcType="INTEGER" property="movieid" />
+    <result column="titleCn" jdbcType="VARCHAR" property="titlecn" />
+    <result column="titleEn" jdbcType="VARCHAR" property="titleen" />
+    <result column="director" jdbcType="VARCHAR" property="director" />
+    <result column="actors" jdbcType="VARCHAR" property="actors" />
+    <result column="story" jdbcType="VARCHAR" property="story" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="time" jdbcType="VARCHAR" property="time" />
+
+    <collection property="remarks" ofType="com.yang.entity.Remark">
+      <id column="remarkId" property="remarkid" jdbcType="INTEGER"/>
+      <result column="content" property="content"/>
+      <result column="time" property="time"/>
+    </collection>
+  </resultMap>
+</mapper>

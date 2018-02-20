@@ -4,60 +4,41 @@
     <meta charset="UTF-8"/>
     <title>注册</title>
     <link href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet"/>
+    <link href="/assets/css/other.min.css" rel="stylesheet"/>
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/angular.js/1.6.3/angular.min.js"></script>
     <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
-    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.ie8polyfill.min.js"></script>
-    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.widgets.helper.min.js"></script>
 
     <script type="text/javascript" src="/js/user.js"></script>
-    <style>
-        .header {
-            text-align: center;
-        }
-        .header h1 {
-            font-size: 200%;
-            color: #333;
-            margin-top: 30px;
-        }
-        .header p {
-            font-size: 14px;
-        }
-    </style>
 </head>
-<body>
-
-<!--标题-->
-<div class="header" onclick="window.location.href='/index'">
-    <div class="am-g">
-        <h1>时光网</h1>
-        <p>For people who love movies<br/>为爱电影的人</p>
+<body class="login-container" ng-app="registerApp" ng-controller="registerCtrl">
+<div class="login-box" style="margin-top: -5%">
+    <div class="logo-img" >
+        <a href="index" title="前往首页">
+            <img src="assets/images/logo2_03.png" />
+        </a>
     </div>
-    <hr />
-</div>
+    <form  class="am-form" >
+        <div class="am-form-group">
+            <label for="doc-vld-num-2"><i class="am-icon-phone"></i></label>
+            <input type="text" id="doc-vld-num-2" placeholder="输入手机号" minlength="11"
+                   ng-model="user.number"/>
+        </div>
 
-<!--注册框-->
-<div class="am-g">
-    <div class="am-u-lg-4 am-u-md-6 am-u-sm-centered am-form"
-         ng-app="registerApp" ng-controller="registerCtrl">
-        <label >手机:</label>
-        <input type="text" name="userNumber" ng-model="user.userNumber"/>
-        <br/>
-        <label >昵称:</label>
-        <div class="am-form-group am-form-warning am-form-icon am-form-feedback">
-            <input type="text" class="{{classinput}}" ng-model="user.userName" id="username"/>
-            <span class="{{classicon}}" style="font-size:10px">用户名重复</span>
+        <div class="am-form-group" >
+            <label for="doc-vld-name-2"><i class="am-icon-user"></i></label>
+            <input type="text" id="doc-vld-name-2" placeholder="输入昵称"
+                   ng-model="user.nickname"/>
+            <label for="doc-vld-name-2"><i class="{{isName}}"/></label>
         </div>
-        <br/>
-        <label >密码:</label>
-        <input type="password" ng-model="user.password"/>
-        <br/>
-        <br/>
-        <div class="am-cf">
-            <input type="button" ng-click="register()" value="注 册" class="am-btn am-btn-primary am-btn-sm am-fl"/>
-            <span class="am-btn am-btn-default am-btn-sm am-fr"><a href="tologin">去登陆</a></span>
+
+        <div class="am-form-group">
+            <label for="doc-vld-email-2"><i class="am-icon-key"></i></label>
+            <input type="password" id="doc-vld-email-2" minlength="6" placeholder="输入密码" required=""
+                   ng-model="user.password" />
         </div>
-    </div>
+        <button class="am-btn am-btn-secondary" ng-click="register()"  type="submit">注册</button>
+    </form>
 </div>
 
 <!--弹窗-->
@@ -72,13 +53,5 @@
     </div>
 </div>
 
-<!--页脚-->
-<footer data-am-widget="footer"
-        class="am-footer am-footer-default"
-        data-am-footer="{  }">
-    <div class="am-footer-miscs " >
-        <p>© 2017 杨洋(1430200021),All Rights Reserved.</p>
-    </div>
-</footer>
 </body>
 </html>

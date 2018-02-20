@@ -1,94 +1,75 @@
 package com.yang;
 
-import com.github.pagehelper.PageInfo;
+import com.sun.org.apache.regexp.internal.RE;
 import com.yang.entity.Movie;
 import com.yang.entity.Remark;
 import com.yang.entity.User;
-import com.yang.service.MovieSerivce;
+import com.yang.service.ActorService;
+import com.yang.service.MovieService;
 import com.yang.service.RemarkService;
 import com.yang.service.UserService;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.annotation.Rollback;
+import tk.mybatis.mapper.entity.Condition;
 
+import javax.annotation.Resource;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
-
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class MtimeApplicationTests {
-
-	@Autowired
-	UserService userService;
-	@Autowired
-	MovieSerivce movieSerivce;
-	@Autowired
-	RemarkService remarkService;
-
+public class MtimeApplicationTests extends Tester{
+	@Resource
+	private UserService userService;
+	@Resource
+	private MovieService movieService;
+	@Resource
+	private ActorService actorService;
+	@Resource
+	private RemarkService remarkService;
 	@Test
-	public void selectMovie() {
-		List<Movie> list = movieSerivce.seleteRecentMovies();
-		for (int i=0;i<list.size();i++) {
-			System.out.println(list.get(i).getTitleCn());
-		}
+	public void login() {
+		Condition condition = new Condition(User.class);
+
+		List<User> user = userService.findByCondition(condition);
+		//User user = userService.login("13512341234", "13512341234");
+		//System.out.println(user.get(0).getNickName());
 	}
 
 	@Test
-	public void selectMovieById() {
-//		List<Movie> list = movieSerivce.selectMovieById("25");
-//		if (list.size() > 0) {
-//			System.out.println(list.get(0).getTitleCn());
-//		}
+	public void test() {
+		Condition condition = new Condition(Movie.class);
+		condition.createCriteria().andBetween("time", "2017-11-01", "2017-12-01");
+		List<Movie> list = movieService.findByCondition(condition);
+		System.out.println(list.size());
 	}
 
 	@Test
-	public void selectAll() {
-		PageInfo<Movie> movie=movieSerivce.selectAllMovie(2, 4);
-		System.out.println("总计"+movie.getTotal());
+	public void condition() {
+		Condition condition = new Condition(User.class);
+		condition.createCriteria()
+				.andEqualTo("number", "13512341234")
+				.andEqualTo("password", "13512341234");
+		List<User> list = userService.findByCondition(condition);
+		System.out.println(list.get(0).toString());
 	}
 
 	@Test
-	public void selectName() {
-		PageInfo<Movie> movie = movieSerivce.seletcMoviesByName("夺金");
-		System.out.println(movie.getList().get(0).getTitleCn());
+	public void dateTest() {
 	}
 
 	@Test
-	public void insterRemark() {
-		List<Remark> list = remarkService.getMovieRemark(7);
-
+	public void RemarkTest() {
+		Remark remark = new Remark();
+		remark.setContent("测试评论");
+		remarkService.addRemark("测试评论",58,1);
 	}
-
 	@Test
-	public void deleteRemark() {
-		if (remarkService.deleteRemark(19)) {
-			System.out.println("success");
-		}
-	}
+	public void selectRemark() {
 
-	@Test
-	public void getUserRemark(){
-		List<Remark> remarks = remarkService.getUserRemark(7);
-		if (remarks.get(0).getTitleCn() != null) {
-			System.out.println(remarks.get(0).getTitleCn());
-		}
-	}
+		List<Remark> remarks = remarkService.remarkByMovieId(59);
+		System.out.println(remarks.get(0).toString());
 
-	@Test
-	public void insterUser() {
-		User user = new User();
-		user.setUserNumber("123456");
-		user.setUserName("test");
-		user.setPassword("123456");
-		System.out.println(userService.register(user).getUserId());
-	}
-
-	@Test
-	public void UserPhoto() {
-		if (userService.updateUserPhoto("head.jpg", 4)) {
-			System.out.println("success");
-		}
 	}
 }

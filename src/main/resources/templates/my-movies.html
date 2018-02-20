@@ -46,34 +46,46 @@
     <div class="am-g">
         <!--用户信息-->
         <div class="am-u-sm-4" style="text-align: center" ng-controller="userCtrl">
-            <!--<img src="/user/{{userimg}}" width="120px" class="am-img-thumbnail am-circle am-center"/>-->
             <div class="am-form-group am-form-file">
                 <button type="button" style="background: transparent; border-style :none;">
-                    <img src="/user/{{userimg}}" width="120px" height="120px" class="am-img-thumbnail am-circle"/>
+                    <img src="http://ozqy003kk.bkt.clouddn.com/{{userimg}}" width="120px" height="120px" class="am-img-thumbnail am-circle"/>
                 </button>
                 <input id="doc-form-file" type="file" class="file-upload"
                        name="files" ng-model="user.userPhoto" onchange ="angular.element(this).scope().uploadUserPhoto()"/>
             </div>
 
-            <h5 style="color: #98a6ad;">昵称：{{username}} </h5>
+            <h5 style="color: #98a6ad;">昵称：{{nickname}} </h5>
             <h5 style="color: #98a6ad;">手机：{{number}}</h5>
+
+            <!--弹窗-->
+            <div class="am-modal am-modal-alert" tabindex="-1" id="alert">
+                <div class="am-modal-dialog">
+                    <div class="am-modal-bd">
+                        {{message}}
+                    </div>
+                    <div class="am-modal-footer">
+                        <span class="am-modal-btn" data-am-modal-cancel="">取消</span>
+                        <span class="am-modal-btn" data-am-modal-confirm="">确定</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!--评论及电影-->
         <div class="am-u-sm-8" style="overflow:visible;" ng-controller="myRemarkCtrl">
-            <div ng-repeat="remark in remarkList">
-                <h1>{{remark.remarkData}}</h1>
+            <div ng-repeat="remark in remarks">
+                <h1>{{remark.time}}</h1>
                 <div class="am-g">
                     <div class="am-u-sm-4">
-                        <img src="/movie/{{remark.img}}" width="170px" height="256px" alt=""/>
+                        <img src="http://ozqy003kk.bkt.clouddn.com/{{remark.movie.img}}" width="170px" height="256px" alt=""/>
                     </div>
                     <div class="am-u-sm-8">
                         <h6>
-                            {{remark.remarkContent}}
+                            {{remark.content}}
                         </h6>
                     </div>
                 </div>
-                <h3 class="am-thumbnail-caption">{{remark.title}}</h3>
+                <h3 class="am-thumbnail-caption">{{remark.movie.titlecn}}</h3>
             </div>
         </div>
     </div>
@@ -84,7 +96,7 @@
 <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
     <div class="am-modal-dialog">
         <div class="am-modal-bd">
-            已退出登录
+            退出登录?
         </div>
         <div class="am-modal-footer">
             <span class="am-modal-btn" data-am-modal-cancel="">取消</span>

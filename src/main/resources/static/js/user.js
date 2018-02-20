@@ -1,7 +1,3 @@
-// 对用户的操作 访问后台
-// 登陆 注册
-// 检查用户名
-
 /**
  * 登陆提交
  */
@@ -12,26 +8,25 @@ app.controller('loginCtrl', function($scope, $http) {
         $http({
             method: 'POST',
             url: 'http://localhost/user/login',
-            //url: 'http://7a44ct.natappfree.cc/user/login',
             data:$.param($scope.user),
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(function successCallback(res) {
             var ob = JSON.parse(JSON.stringify(res.data));
-            if("success"==ob.msg){
+            if(200==ob.code){
                 console.log("登陆成功")
                 //session保存
-                window.sessionStorage.setItem("name", ob.name);
-                window.sessionStorage.setItem("img", ob.img);
-                window.sessionStorage.setItem("userid", ob.id);
-                //跳转主页或管理员
-                if("admin"==ob.authority) {
-                    window.location.href = 'admin';
-                }else {
-                    if(window.sessionStorage.getItem("movieId")>0) {
-                        window.location.href = 'toremark';
-                    }else window.location.href = 'index';
-                }
+                window.sessionStorage.setItem("username", ob.data.nickname);
+                window.sessionStorage.setItem("img", ob.data.img);
+                window.sessionStorage.setItem("userid", ob.data.userid);
+
+                console.log(window.sessionStorage.getItem("username"));
+
+                if(window.sessionStorage.getItem("movieId")>0) {
+                    window.location.href = 'toremark';
+                }else window.location.href = 'index';
+
             }else {
+                $scope.message = ob.message;
                 $('#login-alert').modal();
             }
         }, function errorCallback(res) {
@@ -39,6 +34,7 @@ app.controller('loginCtrl', function($scope, $http) {
         });
     }
 });
+
 /**
  * 注册部分
  */
@@ -54,17 +50,16 @@ app.controller('registerCtrl',function ($scope, $http) {
         if(isName){
             $http({
                 method: 'POST',
-                url: 'http://localhost/user/register',
-                //url: 'http://7a44ct.natappfree.cc/user/register',
+                url: 'http://localhost/user',
                 data:$.param($scope.user),
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             }).then(function successCallback(res) {
                 var ob = JSON.parse(JSON.stringify(res.data));
-                if("success"==ob.msg) {
+                if(200==ob.code) {
                     console.log("注册成功");
-                    window.sessionStorage.setItem("name", ob.name);
-                    window.sessionStorage.setItem("img", ob.img);
-                    window.sessionStorage.setItem("userid", ob.id);
+                    window.sessionStorage.setItem("username", ob.data.nickname);
+                    window.sessionStorage.setItem("img", ob.data.img);
+                    window.sessionStorage.setItem("userid", ob.data.userid);
                     window.location.href = 'index';
                 }else {
                     console.log("注册失败");
@@ -77,40 +72,26 @@ app.controller('registerCtrl',function ($scope, $http) {
 
     }
     //监测用户名重复
-    $scope.$watch('user.userName',function (newValue) {
+    $scope.$watch('user.nickname',function (newValue) {
         console.log(newValue)
         $http({
             method: 'POST',
             url: 'http://localhost/user/checkname',
-            //url: 'http:/7a44ct.natappfree.cc/user/checkname',
             data:$.param($scope.user),
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(function successCallback(res) {
             var ob = JSON.parse(JSON.stringify(res.data));
-            if("success"==ob.msg) {
-                console.log("用户名重复");
-                classChanged();
-                isName = false;
-            }else {
-                console.log("用户名可用");
-                classChange();
-                if(newValue!=null){
+                if(200==ob.code) {
+                    $scope.isName="am-icon-check am-success"
                     isName = true;
+                }else {
+                    $scope.isName="am-icon-times am-warning"
+                    isName=false
                 }
-            }
+            });
         },function errorCallback(res) {
             console.log(res);
         })
     })
 
-    //改变输入框状态
-    function classChanged() {
-        $scope.classicon='am-icon-times';
-        $scope.classinput='am-form-field';
-    }
-    function classChange() {
-        $scope.classicon='am-hide';
-        $scope.classinput='';
-    }
-})
 

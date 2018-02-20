@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>用户列表</title>
+
+    <script src="assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="assets/css/app.css"/>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/angular.js/1.6.3/angular.min.js"></script>
+
+    <script>
+        var app=angular.module('adminApp', []);
+    </script>
+    <script type="text/javascript" src="/js/admin.js"></script>
+    <script type="text/javascript" src="/js/admin-info.js"></script>
+    <script type="text/javascript" src="/js/admin-get-list.js"></script>
+
+</head>
+<body ng-app="adminApp">
+
+<div class="am-g tpl-g">
+    <script src="assets/js/theme.js"></script>
+    <!-- 头部 -->
+    <header ng-controller="adminInfoCtrl">
+        <!-- logo -->
+        <div class="am-fl tpl-header-logo">
+            <a href="javascript:;"><img src="img/admin-logo.png" alt=""/></a>
+        </div>
+        <!-- 右侧内容 -->
+        <div class="tpl-header-fluid">
+            <!-- 侧边切换 -->
+            <div class="am-fl tpl-header-switch-button am-icon-list">
+                    <span>
+
+                </span>
+            </div>
+
+            <!-- 其它功能-->
+            <div class="am-fr tpl-header-navbar">
+                <ul>
+                    <!-- 欢迎语 -->
+                    <li class="am-text-sm tpl-header-navbar-welcome">
+                        <a href="javascript:;">欢迎, <span>{{adminname}}</span> </a>
+                    </li>
+                    <!-- 退出 -->
+                    <li class="am-text-sm">
+                        <a href="#" ng-click="exit()">
+                            <span class="am-icon-sign-out"></span> 退出
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- 侧边导航栏 -->
+    <div class="left-sidebar"  >
+        <!-- 菜单 -->
+        <ul class="sidebar-nav">
+            <li class="sidebar-nav-heading"></li>
+
+            <li class="sidebar-nav-link">
+                <a href="javascript:;" class="sidebar-nav-sub-title">
+                    <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 信息上传
+                    <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                </a>
+                <ul class="sidebar-nav sidebar-nav-sub">
+                    <li class="sidebar-nav-link">
+                        <a href="admin-index">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 电影上传
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="admin-actor">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 演员上传
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="sidebar-nav-link">
+                <a href="javascript:;" class="sidebar-nav-sub-title">
+                    <i class="am-icon-table sidebar-nav-link-logo"></i> 管理列表
+                    <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                </a>
+                <ul class="sidebar-nav sidebar-nav-sub" style="display: block;">
+                    <li class="sidebar-nav-link">
+                        <a href="admin-movies">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 电影列表
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="admin-actors" >
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 演员列表
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="admin-users" class="sub-active">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 用户列表
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="admin-remark">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 评论列表
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+
+    <!--内容区域-->
+    <div ng-controller="usersCtrl">
+        <div class="tpl-content-wrapper" >
+            <div class="row-content am-cf row">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                    <div class="widget am-cf">
+                        <div class=" widget-head widget-title  am-cf">用户列表</div>
+
+                        <div class="widget-body  am-fr">
+                            <!--搜索-->
+                            <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                                <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+                                    <input type="text" class="am-form-field " ng-model="userName"/>
+                                    <span class="am-input-group-btn">
+                                                    <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+                                                            type="button" ng-click="selectUserName()"/>
+                                            </span>
+                                </div>
+                            </div>
+
+                            <!--电影列表-->
+                            <div class="am-u-sm-12">
+                                <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
+                                    <thead>
+                                    <tr>
+                                        <th>用户头像</th>
+                                        <th>用户名</th>
+                                        <th>手机号</th>
+                                        <th>注册时间</th>
+                                        <!--<th>操作</th>-->
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="even gradeC" ng-repeat="user in userList">
+                                        <td>
+                                            <img src="http://ozqy003kk.bkt.clouddn.com/{{user.img}}" class="tpl-table-line-img am-circle" alt=""/>
+                                        </td>
+                                        <td class="am-text-middle">{{user.nickname}}</td>
+                                        <td class="am-text-middle">{{user.number}}</td>
+                                        <td class="am-text-middle">{{user.registertime}}</td>
+                                        <!--<td class="am-text-middle">-->
+                                            <!--<div class="tpl-table-black-operation">-->
+                                                <!--<a href="" class="tpl-table-black-operation-del"-->
+                                                   <!--ng-click="deleteuser(user.userid)">-->
+                                                    <!--<i class="am-icon-trash"></i> 删除-->
+                                                <!--</a>-->
+                                            <!--</div>-->
+                                        <!--</td>-->
+                                    </tr>
+                                    <!-- more data -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="am-u-lg-12 am-cf">
+                                <div class="am-fr">
+                                    <ul class="am-pagination tpl-pagination">
+                                        <li ng-click="changePage(0)"><a href="">«</a></li>
+
+                                        <li ng-click="changePage(num)" ng-repeat="num in pageNums"
+                                            ng-class="{'am-active':show==={{num}}}">
+                                            <a href="">{{num}}</a>
+                                        </li>
+
+                                        <li ng-click="changePage(999)"><a href="">»</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="assets/js/amazeui.min.js"></script>
+<script src="assets/js/amazeui.datatables.min.js"></script>
+<script src="assets/js/dataTables.responsive.min.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

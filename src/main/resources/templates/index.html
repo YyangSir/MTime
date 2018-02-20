@@ -10,8 +10,11 @@
     <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.ie8polyfill.min.js"></script>
     <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.widgets.helper.min.js"></script>
 
+    <script>
+        var myApp=angular.module('indexApp', []);
+    </script>
     <script type="text/javascript" src="/js/index.js"></script>
-    <!--<script type="text/javascript" src="/js/header.js"></script>-->
+    <script type="text/javascript" src="/js/header.js"></script>
 </head>
 <body ng-app="indexApp">
 <!--导航-->
@@ -26,6 +29,7 @@
             <ul class="am-nav am-nav-pills am-topbar-nav">
                 <li class="am-active"><a href="#">首页</a></li>
                 <li><a href="/tolist">电影列表</a></li>
+                <li><a href="/actor-list">演员列表</a></li>
             </ul>
 
             <div class="{{passport}}">
@@ -50,68 +54,58 @@
                     </button>
                 </div>
                 <div class="am-topbar-right" ng-click="myInfo()" >
-                    <img src="/user/{{img}}" width="48px" class="am-img-thumbnail am-circle" style="margin-right: 10px"/>
+                    <img src="http://ozqy003kk.bkt.clouddn.com/{{img}}" width="48px" class="am-img-thumbnail am-circle" style="margin-right: 10px"/>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<div class="am-g" style="color:#FFF">
-    留白
-</div>
-
 <div class="am-container"  ng-controller="indexCtrl">
-    <!--轮播-->
-    <div class="am-slider am-slider-default" data-am-flexslider="" id="demo-slider-0">
-        <ul class="am-slides">
-            <li><img src="http://img5.mtime.cn/mg/2017/12/13/093748.94467984.jpg" /></li>
-            <li><img src="http://img5.mtime.cn/mg/2017/12/12/092434.39817280.jpg" /></li>
-            <li><img src="http://img5.mtime.cn/mg/2017/12/11/225719.90336887.jpg" /></li>
-            <li><img src="http://img5.mtime.cn/mg/2017/12/10/091656.17124725.jpg" /></li>
-        </ul>
-    </div>
-
-    <div data-am-widget="titlebar" class="am-titlebar am-titlebar-multi" >
-        <h2 class="am-titlebar-title ">
-            近期电影
-        </h2>
-
-        <!--去更多电影-->
-        <nav class="am-titlebar-nav">
-            <a href="/tolist" class="">more &raquo;</a>
-        </nav>
-    </div>
-
     <!--近期电影-->
-    <div class="am-g" style="text-align:center">
-        <div class="am-u-sm-3">
-            <div class="am-thumbnail" ng-click="toremark(movieId_0)">
-                <img src="/movie/{{img_0}}" alt="" width="170px" height="256px"/>
-                <h3 class="am-thumbnail-caption" ><strong>{{title_0}}</strong></h3>
-            </div>
+    <div>
+        <div data-am-widget="titlebar" class="am-titlebar am-titlebar-multi" >
+            <h2 class="am-titlebar-title ">
+                近期热映
+            </h2>
+            <!--去更多电影-->
+            <nav class="am-titlebar-nav">
+                <a href="/tolist" class="">more &raquo;</a>
+            </nav>
         </div>
-        <div class="am-u-sm-3">
-            <div class="am-thumbnail" ng-click="toremark(movieId_1)">
-                <img src="/movie/{{img_1}}" alt="" width="170px" height="256px"/>
-                <h3 class="am-thumbnail-caption" ><strong>{{title_1}}</strong></h3>
-            </div>
-        </div>
-        <div class="am-u-sm-3">
-            <div class="am-thumbnail" ng-click="toremark(movieId_2)">
-                <img src="/movie/{{img_2}}" alt="" width="170px" height="256px"/>
-                <h3 class="am-thumbnail-caption" ><strong>{{title_2}}</strong></h3>
-            </div>
-        </div>
-        <div class="am-u-sm-3">
-            <div class="am-thumbnail" ng-click="toremark(movieId_3)">
-                <img src="/movie/{{img_3}}" alt="" width="170px" height="256px"/>
-                <h3 class="am-thumbnail-caption" ><strong>{{title_3}}</strong></h3>
+        <div class="am-g" style="text-align:center">
+            <div class="am-u-sm-3" ng-repeat="movie in movieList">
+                <div class="am-thumbnail" ng-click="toremark(movie.movieid)">
+                    <img src="http://ozqy003kk.bkt.clouddn.com/{{movie.img}}" alt3="" width="170px" height="256px"/>
+                    <h3 class="am-thumbnail-caption" ><strong>{{movie.titlecn}}</strong></h3>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
+    <!--即将上映-->
+    <div>
+        <div data-am-widget="titlebar" class="am-titlebar am-titlebar-multi" >
+            <h2 class="am-titlebar-title ">
+                即将上映
+            </h2>
+
+            <!--去更多电影-->
+            <nav class="am-titlebar-nav">
+                <a href="/tolist" class="">more &raquo;</a>
+            </nav>
+        </div>
+        <div class="am-g" style="text-align:center">
+            <div class="am-u-sm-3" ng-repeat="movie in comingList">
+                <div class="am-thumbnail" ng-click="toremark(movie.movieid)">
+                    <img src="http://ozqy003kk.bkt.clouddn.com/{{movie.img}}" alt3="" width="170px" height="256px"/>
+                    <h3 class="am-thumbnail-caption" ><strong>{{movie.titlecn}}</strong></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 <!--弹窗-->
 <div class="am-modal am-modal-alert" tabindex="-1" id="index-alert">

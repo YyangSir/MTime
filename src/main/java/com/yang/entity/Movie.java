@@ -1,121 +1,171 @@
 package com.yang.entity;
 
-import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
 
-/**
- * @author Yyang
- * @create 2017/10/31.
- */
-public class Movie implements Serializable{
-	int movieId;
+public class Movie {
+    @Id
+    @Column(name = "movieId")
+    private Integer movieid;
 
-	/** 中文名*/
-	private String titleCn;
+    @Column(name = "titleCn")
+    private String titlecn;
 
-	/** 英文名*/
-	private String titleEn;
+    @Column(name = "titleEn")
+    private String titleen;
 
-	/** 导演*/
-	private String director;
+    private String director;
 
-	/** 演员*/
-	private String actors;
+    private String actors;
 
-	/** 简介*/
-	private String story;
+    private String story;
 
-	/** 类型*/
-	private String type;
+    private String type;
 
-	/** 上映时间*/
-	private String moviesTime;
+    private String img;
 
-	/** 海报*/
-	private String img;
+    private String time;
 
-	@Override
-	public String toString() {
-		return "Movie{" +
-				"titleCn='" + titleCn + '\'' +
-				", titleEn='" + titleEn + '\'' +
-				", director='" + director + '\'' +
-				", actors='" + actors + '\'' +
-				", story='" + story + '\'' +
-				", type='" + type + '\'' +
-				", moviesTime='" + moviesTime + '\'' +
-				", img='" + img + '\'' +
-				'}';
-	}
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "movieid=" + movieid +
+                ", titlecn='" + titlecn + '\'' +
+                ", titleen='" + titleen + '\'' +
+                ", director='" + director + '\'' +
+                ", actors='" + actors + '\'' +
+                ", story='" + story + '\'' +
+                ", type='" + type + '\'' +
+                ", img='" + img + '\'' +
+                ", time='" + time + '\'' +
+                '}';
+    }
 
-	public int getMovieId() {
-		return movieId;
-	}
 
-	public void setMovieId(int movieId) {
-		this.movieId = movieId;
-	}
+    /**
+     * @return movieId
+     */
+    public Integer getMovieid() {
+        return movieid;
+    }
 
-	public String getTitleCn() {
-		return titleCn;
-	}
+    /**
+     * @param movieid
+     */
+    public void setMovieid(Integer movieid) {
+        this.movieid = movieid;
+    }
 
-	public void setTitleCn(String titleCn) {
-		this.titleCn = titleCn;
-	}
+    /**
+     * @return titleCn
+     */
+    public String getTitlecn() {
+        return titlecn;
+    }
 
-	public String getTitleEn() {
-		return titleEn;
-	}
+    /**
+     * @param titlecn
+     */
+    public void setTitlecn(String titlecn) {
+        this.titlecn = titlecn;
+    }
 
-	public void setTitleEn(String titleEn) {
-		this.titleEn = titleEn;
-	}
+    /**
+     * @return titleEn
+     */
+    public String getTitleen() {
+        return titleen;
+    }
 
-	public String getDirector() {
-		return director;
-	}
+    /**
+     * @param titleen
+     */
+    public void setTitleen(String titleen) {
+        this.titleen = titleen;
+    }
 
-	public void setDirector(String director) {
-		this.director = director;
-	}
+    /**
+     * @return director
+     */
+    public String getDirector() {
+        return director;
+    }
 
-	public String getActors() {
-		return actors;
-	}
+    /**
+     * @param director
+     */
+    public void setDirector(String director) {
+        this.director = director;
+    }
 
-	public void setActors(String actors) {
-		this.actors = actors;
-	}
+    /**
+     * @return actors
+     */
+    public String getActors() {
+        return actors;
+    }
 
-	public String getStory() {
-		return story;
-	}
+    /**
+     * @param actors
+     */
+    public void setActors(String actors) {
+        this.actors = actors;
+    }
 
-	public void setStory(String story) {
-		this.story = story;
-	}
+    /**
+     * @return story
+     */
+    public String getStory() {
+        return story;
+    }
 
-	public String getType() {
-		return type;
-	}
+    /**
+     * @param story
+     */
+    public void setStory(String story) {
+        this.story = story;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    /**
+     * @return type
+     */
+    public String getType() {
+        return type;
+    }
 
-	public String getMoviesTime() {
-		return moviesTime;
-	}
+    /**
+     * @param type
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void setMoviesTime(String moviesTime) {
-		this.moviesTime = moviesTime;
-	}
+    /**
+     * @return img
+     */
+    public String getImg() {
+        return img;
+    }
 
-	public String getImg() {
-		return img;
-	}
+    /**
+     * @param img
+     */
+    public void setImg(String img) {
+        this.img = img;
+    }
 
-	public void setImg(String img) {
-		this.img = img;
-	}
+    /**
+     * @return time
+     */
+    public String getTime() {
+        return time;
+    }
+
+    /**
+     * @param time
+     */
+    public void setTime(String time) {
+        this.time = time;
+    }
+
 }

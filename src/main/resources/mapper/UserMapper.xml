@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.dao.UserMapper">
+
+  <resultMap id="UserMap" type="com.yang.entity.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="nickName" jdbcType="VARCHAR" property="nickname" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="registerTime" jdbcType="TIMESTAMP" property="registertime" />
+
+  </resultMap>
+</mapper>

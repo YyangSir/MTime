@@ -1,73 +1,30 @@
 package com.yang.service.impl;
 
-import com.yang.dao.RemarkDao;
-import com.yang.dao.UserDao;
-import com.yang.entity.Remark;
+import com.yang.dao.AdminMapper;
+import com.yang.dao.UserMapper;
 import com.yang.entity.User;
 import com.yang.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.yang.util.ServiceException;
+import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
+
 /**
- * @author Yyang
- * @create 2017/11/5.
- */
+* @author Yyang
+* @create2018/01/04
+*/
 @Service
-public class UserServiceImpl implements UserService {
-	@Autowired
-	private UserDao userDao;
-	@Autowired
-	private RemarkDao remarkDao;
+@Transactional
+public class UserServiceImpl extends AbstractService<User> implements UserService {
+    @Resource
+    private UserMapper userMapper;
 
-	@Override
-	public List<User> userLogin(String number, String password) {
-		if(number == null || password == null){
-			return null;
-		}
-		return userDao.login(number, password);
-	}
-
-	@Override
-	public List<Integer> checkname(String name) {
-		return userDao.checkname(name);
-	}
-
-	@Override
-	public User register(User user) {
-		user.setUserPhoto("head.jpg");
-		//注册成功
-		if (userDao.register(user)) {
-			user.setUserId(userDao.checkname(user.getUserName()).get(0));
-			return user;
-		}
-		return null;
-	}
-
-	@Override
-	public User info(int userid) {
-		List<User> users = userDao.selectUserById(userid);
-		if (users.size() > 0) {
-			return users.get(0);
-		}
-		return null;
-	}
-
-	@Override
-	public List<Remark> getUserRemark(int userid) {
-		List<Remark> remarks = remarkDao.getUserRemark(userid);
-		int n = remarks.size();
-		for(int i=0;i<n;i++) {
-			remarks.get(i).setRemarkData(remarks.get(i).getRemarkTime().toString());
-		}
-		return remarks;
-	}
-
-	@Override
-	public boolean updateUserPhoto(String photo, int userId) {
-		return userDao.updatePhoto(photo,userId);
-	}
-
-
+    @Override
+    public List<User> selectByName(String name) {
+        return userMapper.selectByName(name);
+    }
 }

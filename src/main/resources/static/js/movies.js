@@ -1,8 +1,6 @@
 /**
  * 电影列表
  */
-var myApp=angular.module('moviesApp', []);
-
 myApp.controller('moviesCtrl',function ($scope, $http) {
     var postData = {
         pageIndex: 1,
@@ -20,19 +18,19 @@ myApp.controller('moviesCtrl',function ($scope, $http) {
      */
     function GetAllMovies() {
         $http({
-            method: 'POST',
-            url: 'http://localhost/movie/all',
-            data: $.param(postData),
+            method: 'GET',
+            url: 'http://localhost/movie?page='+postData.pageIndex+"&size="+postData.pageSize,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function successCallback(res) {
-            console.log(res.data);
+            var ob = JSON.parse(JSON.stringify(res.data));
             //电影数据
-            $scope.movieList = res.data.list;
+            $scope.movieList = ob.data.list;
             //设置page数量
-            $scope.pageNums = res.data.navigatepageNums;
+            $scope.pageNums = ob.data.navigatepageNums;
+
             //是否第一页最后一页
-            postData.hasNextPage = res.data.hasNextPage;
-            postData.hasPreviousPage = res.data.hasPreviousPage;
+            postData.hasNextPage = ob.data.hasNextPage;
+            postData.hasPreviousPage = ob.data.hasPreviousPage;
 
         }, function errorCallback(res) {
             console.log(res);
@@ -45,18 +43,28 @@ myApp.controller('moviesCtrl',function ($scope, $http) {
      */
     $scope.selectMovieName=function () {
         console.log($scope.movieName)
+        if ($scope.movieName==undefined) {
+
+            return;
+        }
         $http({
             method: 'GET',
-            url: 'http://localhost/movie/name_' + $scope.movieName,
+            url: 'http://localhost/movieName/' + $scope.movieName,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function successCallback(res) {
-            //电影数据
-            $scope.movieList = res.data.list;
-            //设置page数量
-            $scope.pageNums = res.data.navigatepageNums;
-            //是否第一页最后一页
-            postData.hasNextPage = res.data.hasNextPage;
-            postData.hasPreviousPage = res.data.hasPreviousPage;
+            var ob = JSON.parse(JSON.stringify(res.data));
+            if(200==ob.code) {
+                //电影数据
+                $scope.movieList = ob.data.list;
+                //设置page数量
+                $scope.pageNums = ob.data.navigatepageNums;
+                //是否第一页最后一页
+                postData.hasNextPage = ob.data.hasNextPage;
+                postData.hasPreviousPage = ob.data.hasPreviousPage;
+            }else if(400==ob.code) {
+                console.log(ob.message)
+            }
+
         },function errorCallback(res) {
             console.log(res);
         });
@@ -97,52 +105,5 @@ myApp.controller('moviesCtrl',function ($scope, $http) {
     //选中的页码变局域蓝
     function changeClass(num) {
         $scope.show = num;
-    }
-})
-
-myApp.controller('headerCtrl', function($scope, $http){
-    isLogin();
-
-    /**
-     * 根据id 前往我的电影页面
-     */
-    $scope.myInfo=function () {
-        window.location.href = "tomy";
-    }
-
-    $scope.exit=function () {
-        console.log("退出登陆");
-        //清楚信息
-        window.sessionStorage.clear();
-        isLogin();
-
-        $('#index-alert').modal();
-
-        $('#movies-alert').modal();
-
-        $('#remark-alert').modal();
-
-    }
-
-    /**
-     * 判断是否登陆
-     */
-    function isLogin() {
-        var islogin = window.sessionStorage.getItem("name");
-        if(islogin!=null) {
-            $scope.passport = "am-hide";
-            $scope.userinfo = "";
-            headImg();
-        }else {
-            $scope.passport = "";
-            $scope.userinfo = "am-hide";
-        }
-    }
-
-    /**
-     * 获取头像
-     */
-    function headImg() {
-        $scope.img = window.sessionStorage.getItem("img");
     }
 })

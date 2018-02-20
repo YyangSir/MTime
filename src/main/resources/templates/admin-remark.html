@@ -18,22 +18,110 @@
     <script src="assets/js/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/angular.js/1.6.3/angular.min.js"></script>
 
+
+    <script>
+        var app=angular.module('adminApp', []);
+    </script>
     <script type="text/javascript" src="/js/admin.js"></script>
+    <script type="text/javascript" src="/js/admin-info.js"></script>
+    <script type="text/javascript" src="/js/admin-get-list.js"></script>
 </head>
 
 <body data-type="widgets" ng-app="adminApp">
 <script src="assets/js/theme.js"></script>
 <div class="am-g tpl-g">
+
+    <!-- 头部 -->
+    <header ng-controller="adminInfoCtrl">
+        <!-- logo -->
+        <div class="am-fl tpl-header-logo">
+            <a href="javascript:;"><img src="img/admin-logo.png" alt=""/></a>
+        </div>
+        <!-- 右侧内容 -->
+        <div class="tpl-header-fluid">
+            <!-- 侧边切换 -->
+            <div class="am-fl tpl-header-switch-button am-icon-list">
+                    <span>
+
+                </span>
+            </div>
+
+            <!-- 其它功能-->
+            <div class="am-fr tpl-header-navbar">
+                <ul>
+                    <!-- 欢迎语 -->
+                    <li class="am-text-sm tpl-header-navbar-welcome">
+                        <a href="javascript:;">欢迎, <span>{{adminname}}</span> </a>
+                    </li>
+
+                    <!-- 新提示 -->
+                    <li class="am-dropdown" data-am-dropdown="">
+                        <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle="">
+                            <i class="am-icon-bell"></i>
+                            <span class="am-badge am-badge-warning am-round item-feed-badge">5</span>
+                        </a>
+
+                        <!-- 弹出列表 -->
+                        <ul class="am-dropdown-content tpl-dropdown-content">
+                            <li class="tpl-dropdown-menu-notifications">
+                                <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                    <div class="tpl-dropdown-menu-notifications-title">
+                                        <i class="am-icon-line-chart"></i>
+                                        <span> 有n位新用户注册</span>
+                                    </div>
+                                    <div class="tpl-dropdown-menu-notifications-time">
+                                        12分钟前
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="tpl-dropdown-menu-notifications">
+                                <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                    <div class="tpl-dropdown-menu-notifications-title">
+                                        <i class="am-icon-star"></i>
+                                        <span> 有n条新评论</span>
+                                    </div>
+                                    <div class="tpl-dropdown-menu-notifications-time">
+                                        30分钟前
+                                    </div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <!-- 退出 -->
+                    <li class="am-text-sm">
+                        <a href="#" ng-click="exit()">
+                            <span class="am-icon-sign-out"></span> 退出
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
     <!-- 侧边导航栏 -->
-    <div class="left-sidebar" ng-controller="adminInfoCtrl">
+    <div class="left-sidebar" >
         <!-- 菜单 -->
         <ul class="sidebar-nav">
-            <li class="sidebar-nav-heading">管理员： {{adminname}}</li>
+            <li class="sidebar-nav-heading"></li>
 
             <li class="sidebar-nav-link">
-                <a href="admin">
-                    <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 电影上传
+                <a href="javascript:;" class="sidebar-nav-sub-title">
+                    <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 信息上传
+                    <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                 </a>
+                <ul class="sidebar-nav sidebar-nav-sub">
+                    <li class="sidebar-nav-link">
+                        <a href="admin-index">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 电影上传
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="admin-actor">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 演员上传
+                        </a>
+                    </li>
+                </ul>
             </li>
 
             <li class="sidebar-nav-link">
@@ -48,16 +136,21 @@
                         </a>
                     </li>
                     <li class="sidebar-nav-link">
+                        <a href="admin-actors">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 演员列表
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="admin-users">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 用户列表
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-link">
                         <a href="" class="sub-active">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 评论列表
                         </a>
                     </li>
                 </ul>
-            </li>
-            <li class="sidebar-nav-link">
-                <a ng-click="exit()">
-                    <span class="am-icon-sign-out sidebar-nav-link-logo"></span> 退出
-                </a>
             </li>
         </ul>
     </div>
@@ -77,16 +170,14 @@
                                     <thead>
                                     <tr>
                                         <th>评论</th>
-                                        <th>用户</th>
                                         <th>时间</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr class="gradeX" ng-repeat="remark in remarkList">
-                                        <td width="50%">{{remark.remarkContent}}</td>
-                                        <td>{{remark.userName}}</td>
-                                        <td>{{remark.remarkData}}</td>
+                                    <tr class="gradeX" ng-repeat="remark in remarks">
+                                        <td width="50%">{{remark.content}}</td>
+                                        <td>{{remark.time}}</td>
                                         <td>
                                             <div class="tpl-table-black-operation">
                                                 <a ng-click="deleteremark(remark.remarkId)" class="tpl-table-black-operation-del">

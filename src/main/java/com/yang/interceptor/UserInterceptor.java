@@ -18,11 +18,10 @@ public class UserInterceptor implements HandlerInterceptor {
 		System.out.println("UserInterceptor...");
 		HttpSession session = httpServletRequest.getSession();
 
-		if (session.getAttribute("id") == null) {
-			httpServletRequest.getRequestDispatcher("/loginError").forward(httpServletRequest, httpServletResponse);
+		if (session.getAttribute("userid") == null || session.getAttribute("userid").equals(0)) {
+			httpServletRequest.getRequestDispatcher("/userError").forward(httpServletRequest, httpServletResponse);
 			return false;
 		}
-
 		return true;
 	}
 

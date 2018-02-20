@@ -10,7 +10,11 @@
     <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.ie8polyfill.min.js"></script>
     <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.widgets.helper.min.js"></script>
 
+    <script>
+        var myApp=angular.module('remarkApp', []);
+    </script>
     <script type="text/javascript" src="/js/remarks.js"></script>
+    <script type="text/javascript" src="/js/header.js"></script>
 </head>
 <body ng-app="remarkApp">
 <!--导航-->
@@ -25,6 +29,7 @@
             <ul class="am-nav am-nav-pills am-topbar-nav">
                 <li ><a href="/index">首页</a></li>
                 <li><a href="/tolist">电影列表</a></li>
+                <li><a href="/actor-list">演员列表</a></li>
             </ul>
 
             <div class="{{passport}}">
@@ -49,7 +54,7 @@
                     </button>
                 </div>
                 <div class="am-topbar-right" ng-click="myInfo()">
-                    <img src="/user/{{img}}" width="48px" class="am-img-thumbnail am-circle" style="margin-right: 10px"/>
+                    <img src="http://ozqy003kk.bkt.clouddn.com/{{img}}" width="48px" class="am-img-thumbnail am-circle" style="margin-right: 10px"/>
                 </div>
             </div>
 
@@ -62,17 +67,17 @@
 </div>
 
 <!--内容-->
-<div class="am-container" ng-controller="movieCtrl">
+<div class="am-container">
     <!--电影详细信息-->
-    <div class="am-g">
+    <div class="am-g" ng-controller="movieCtrl">
         <!--电影海报-->
         <div class="am-u-sm-4 ">
-            <img src="/movie/{{img}}"/>
+            <img src="http://ozqy003kk.bkt.clouddn.com/{{img}}"/>
         </div>
         <!--电影信息-->
         <div class="am-u-sm-8">
-            <h1>{{titleCn}}</h1>
-            <p style="font-size:25px;">{{titleEn}}</p>
+            <h1>{{titlecn}}</h1>
+            <p style="font-size:25px;">{{titleen}}</p>
             <p>{{type}} {{moviesTime}}上映</p>
             <div class="am-g">
                 <div class="am-u-sm-2">
@@ -82,7 +87,7 @@
                 </div>
                 <div class="am-u-sm-10">
                     <p>{{director}}</p>
-                    <p>{{actors}}</p>
+                    <span ng-repeat="actor in actors"><a href="" ng-click="actorInfo(actor)">{{actor}} </a></span>
                     <p>{{story}}</p>
                 </div>
             </div>
@@ -100,7 +105,7 @@
             <fieldset>
                 <div class="am-form-group">
                     <label for="doc-ta-1">表达你对想法(200字)</label>
-                    <textarea class="" rows="5" id="doc-ta-1" ng-model="remark.remarkContent"></textarea>
+                    <textarea class="" rows="5" id="doc-ta-1" ng-model="content"></textarea>
                 </div>
 
                 <p><button type="submit" class="am-btn am-btn-primary"
@@ -110,26 +115,27 @@
 
         <!--评论列表-->
         <div>
-            <ul class="am-comments-list" ng-repeat="remark in remarkList">
+            <ul class="am-comments-list" ng-repeat="remark in remarks">
                 <li style="margin: 10px;">
-                    <img src="/user/{{remark.userPhoto}}" alt="" class="am-comment-avatar" width="48" height="48"/>
+                    <img src="http://ozqy003kk.bkt.clouddn.com/{{remark.user.img}}" alt="" class="am-comment-avatar" width="48" height="48"/>
 
                     <div class="am-comment-main">
                         <header class="am-comment-hd">
 
                             <div class="am-comment-meta">
-                                <span class="am-comment-author">{{remark.userName}}</span>
-                                <time datetime="2013-07-27T04:54:29-07:00" title="2013年7月27日 下午7:54 格林尼治标准时间+0800">{{remark.remarkData}}</time>
+                                <span class="am-comment-author">{{remark.user.nickname}}</span>
+                                <time>{{remark.time}}</time>
                             </div>
                         </header>
 
                         <div class="am-comment-bd">
-                            {{remark.remarkContent}}
+                            {{remark.content}}
                         </div>
                     </div>
                 </li>
             </ul>
         </div>
+
     </div>
 
 </div>
@@ -138,7 +144,7 @@
 <div class="am-modal am-modal-alert" tabindex="-1" id="remark-alert">
     <div class="am-modal-dialog">
         <div class="am-modal-bd">
-            已退出登录
+           已退出登录
         </div>
         <div class="am-modal-footer">
             <span class="am-modal-btn">确定</span>
@@ -159,7 +165,7 @@
 <div class="am-modal am-modal-alert" tabindex="-1" id="errorRemark-alert">
     <div class="am-modal-dialog">
         <div class="am-modal-bd">
-            评论失败，请登录！
+            评论失败
         </div>
         <div class="am-modal-footer">
             <span class="am-modal-btn">确定</span>

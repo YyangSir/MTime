@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.dao.ActorMapper">
+  <resultMap id="ActorMap" type="com.yang.entity.Actor">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="actorId" jdbcType="INTEGER" property="actorid" />
+    <result column="nameCn" jdbcType="VARCHAR" property="namecn" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="nameEn" jdbcType="VARCHAR" property="nameen" />
+    <result column="story" jdbcType="VARCHAR" property="story" />
+  </resultMap>
+</mapper>

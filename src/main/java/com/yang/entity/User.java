@@ -1,76 +1,116 @@
 package com.yang.entity;
 
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.util.List;
 
-/**
- * @author Yyang
- * @create 2017/10/23.
- */
-public class User implements Serializable {
+public class User {
+    @Id
+    @Column(name = "userId")
+    private Integer userid;
 
-	private Integer userId;
+    @Column(name = "nickName")
+    private String nickname;
 
-	/** 手机号 */
-	private String userNumber;
+    private String password;
 
-	/** 密码 */
-	private String password;
+    private String img;
 
-	/** 用户昵称 */
-	private String userName;
+    private String number;
 
-	/** 用户头像 */
-	private String userPhoto;
+    @Column(name = "registerTime")
+    private String registertime;
 
-	@Override
-	public String toString() {
-		return "User{" +
-				"userId=" + userId +
-				", userNumber='" + userNumber + '\'' +
-				", password='" + password + '\'' +
-				", userName='" + userName + '\'' +
-				", userPhoto='" + userPhoto + '\'' +
-				'}';
-	}
 
-	public int getUserId() {
-		return userId;
-	}
+    @Override
+    public String toString() {
+        return "User{" +
+                "userid=" + userid +
+                ", nickname='" + nickname + '\'' +
+                ", password='" + password + '\'' +
+                ", img='" + img + '\'' +
+                ", number='" + number + '\'' +
+                ", registertime=" + registertime +
+                '}';
+    }
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
 
-	public String getUserNumber() {
-		return userNumber;
-	}
+    /**
+     * @return userId
+     */
+    public Integer getUserid() {
+        return userid;
+    }
 
-	public void setUserNumber(String userNumber) {
-		this.userNumber = userNumber;
-	}
+    /**
+     * @param userid
+     */
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    /**
+     * @return nickName
+     */
+    public String getNickname() {
+        return nickname;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    /**
+     * @param nickname
+     */
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    /**
+     * @return password
+     */
+    public String getPassword() {
+        return password;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    /**
+     * @param password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getUserPhoto() {
-		return userPhoto;
-	}
+    /**
+     * @return img
+     */
+    public String getImg() {
+        return img;
+    }
 
-	public void setUserPhoto(String userPhoto) {
-		this.userPhoto = userPhoto;
-	}
+    /**
+     * @param img
+     */
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    /**
+     * @return number
+     */
+    public String getNumber() {
+        return number;
+    }
+
+    /**
+     * @param number
+     */
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getRegistertime() {
+        return registertime;
+    }
+
+    public void setRegistertime(String registertime) {
+        this.registertime = registertime;
+    }
 
 }

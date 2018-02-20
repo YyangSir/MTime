@@ -1,119 +1,87 @@
 package com.yang.entity;
 
-import java.io.Serializable;
-import java.util.Date;
+import javax.persistence.*;
 
-/**
- * @author Yyang
- * @create 2017/10/31.
- */
-public class Remark implements Serializable {
-	int remarkId;
+public class Remark {
+    @Id
+    @Column(name = "remarkId")
+    private Integer remarkid;
 
-	/**
-	 * 评论内容
-	 */
-	String remarkContent;
+    private String content;
 
-	/**
-	 * 评论时间
-	 */
-	Date remarkTime;
+    private String time;
 
-	/**
-	 * 评论时间
-	 */
-	String remarkData;
+    private User user;
 
-	/**
-	 * 评论用户
-	 */
-	String userName;
+    private Movie movie;
 
-	/**
-	 * 用户头像
-	 */
-	String userPhoto;
+    public Movie getMovie() {
+        return movie;
+    }
 
-	/**
-	 * 电影名
-	 */
-	String titleCn;
-	/**
-	 * 电影海报
-	 */
-	String img;
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
 
-	@Override
-	public String toString() {
-		return "Remark{" +
-				"remarkId=" + remarkId +
-				", remarkContent='" + remarkContent + '\'' +
-				", remarkTime=" + remarkTime +
-				'}';
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public int getRemarkId() {
-		return remarkId;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public void setRemarkId(int remarkId) {
-		this.remarkId = remarkId;
-	}
+    @Override
+    public String toString() {
+        return "Remark{" +
+                "remarkid=" + remarkid +
+                ", content='" + content + '\'' +
+                ", time='" + time + '\'' +
+                ", user=" + user.getNickname() +
+                ", movie=" + movie.getTitlecn() +
+                '}';
+    }
 
-	public String getRemarkContent() {
-		return remarkContent;
-	}
+    /**
+     * @return remarkId
+     */
+    public Integer getRemarkid() {
+        return remarkid;
+    }
 
-	public void setRemarkContent(String remarkContent) {
-		this.remarkContent = remarkContent;
-	}
+    /**
+     * @param remarkid
+     */
+    public void setRemarkid(Integer remarkid) {
+        this.remarkid = remarkid;
+    }
 
-	public Date getRemarkTime() {
-		return remarkTime;
-	}
+    /**
+     * @return content
+     */
+    public String getContent() {
+        return content;
+    }
 
-	public void setRemarkTime(Date remarkTime) {
-		this.remarkTime = remarkTime;
-	}
+    /**
+     * @param content
+     */
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    /**
+     * @return time
+     */
+    public String getTime() {
+        return time;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    /**
+     * @param time
+     */
+    public void setTime(String time) {
+        this.time = time;
+    }
 
-	public String getRemarkData() {
-		return remarkData;
-	}
-
-	public void setRemarkData(String remarkData) {
-		this.remarkData = remarkData;
-	}
-
-	public String getUserPhoto() {
-		return userPhoto;
-	}
-
-	public void setUserPhoto(String userPhoto) {
-		this.userPhoto = userPhoto;
-	}
-
-	public String getTitleCn() {
-		return titleCn;
-	}
-
-	public void setTitleCn(String titleCn) {
-		this.titleCn = titleCn;
-	}
-
-	public String getImg() {
-		return img;
-	}
-
-	public void setImg(String img) {
-		this.img = img;
-	}
 }

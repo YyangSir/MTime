@@ -1,69 +1,62 @@
 package com.yang.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.yang.dao.RemarkDao;
+import com.yang.dao.RemarkMapper;
+import com.yang.dao.UserMapper;
 import com.yang.entity.Remark;
 import com.yang.service.RemarkService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.yang.util.ServiceException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import javax.annotation.Resource;
 import java.util.List;
 
+
 /**
- * @author Yyang
- * @create 2017/12/4.
- */
+* @author Yyang
+* @create2018/01/05
+*/
 @Service
+@Transactional
 public class RemarkServiceImpl implements RemarkService {
-	@Autowired
-	RemarkDao remarkDao;
+    @Resource
+    private RemarkMapper remarkMapper;
 
-	@Override
-	public boolean insertRemark(String content, int userId, int movieId) {
-		return remarkDao.insertRemark(content,new Date(), userId, movieId);
-	}
+    @Override
+    public void addRemark(String remarkContent, int movieId, int userId) {
+        if (remarkContent == null) {
+            throw new ServiceException("评论不能为空");
+        }
+        Remark remark = new Remark();
+        remark.setContent(remarkContent);
+        remarkMapper.addRemark(remark);
 
-	@Override
-	public List<Remark> getMovieRemark(int movieId) {
-		List<Remark> remarkList = remarkDao.getMovieRemark(movieId);
-		//修改data格式
-		time(remarkList);
-		return remarkList;
-	}
+        if (null==remark||remark.getRemarkid()==0) {
+            throw new ServiceException("评论失败");
+        }
+        if (!remarkMapper.addUmr(remark.getRemarkid(), movieId, userId)) {
+            throw new ServiceException("评论失败");
+        }
+        System.out.println("评论成功");
+    }
 
-	@Override
-	public boolean deleteRemark(int remarkId) {
-		return remarkDao.deleteRemark(remarkId);
-	}
+    @Override
+    public List<Remark> remarkByMovieId(int movieId) {
+        List<Remark> remarks = remarkMapper.selectRemarkByMovie(movieId);
 
-	@Override
-	public List<Remark> getUserRemark(int userId) {
-		return remarkDao.getUserRemark(userId);
-	}
+        return remarks;
+    }
 
-	@Override
-	public PageInfo<Remark> getAllRemark(int pageNo, int pageSize) {
-		//分页
-		PageHelper.startPage(pageNo, pageSize);
-		List<Remark> remarks=remarkDao.getAllRemark();
+    @Override
+    public List<Remark> remarkByUserId(int userId) {
+        List<Remark> remarks = remarkMapper.selectRemarkByUser(userId);
 
-		time(remarks);
-		PageInfo<Remark> remarkPageInfo = new PageInfo<>(remarks);
-		return remarkPageInfo;
-	}
+        return remarks;
+    }
 
-	/**
-	 * 修改时间格式
-	 * @param list
-	 * @return
-	 */
-	private void time(List<Remark> list) {
-		int n = list.size();
-		for(int i=0;i<n;i++) {
-			list.get(i).setRemarkData(list.get(i).getRemarkTime().toString());
-		}
-	}
+    @Override
+    public List<Remark> remarkAll() {
+        return remarkMapper.selectAll();
+    }
 
 }

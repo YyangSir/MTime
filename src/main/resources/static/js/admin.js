@@ -1,70 +1,66 @@
-/* 管理员页面的操作 */
-
-var app=angular.module('adminApp', []);
-/**
- * 显示管理员名称
- * 退出管理员
- */
-app.controller('adminInfoCtrl', function ($scope, $http) {
-
-    //设置管理员姓名
-    console.log(window.sessionStorage.getItem("name"));
-    $scope.adminname = window.sessionStorage.getItem("name");
-
-    $scope.exit = function () {
-        console.log("退出管理员");
-        //移除缓存中管理管理员
-        window.sessionStorage.removeItem("name");
-        //返回登陆页面
-        window.location.href = "tologin";
-    }
-});
 
 /**
  * 上传电影
  */
 app.controller('upMovieCtrl',function ($scope, $http) {
+
     //收集电影信息
     $scope.movie = {};
     var img;
 
     $scope.uploadMovie=function () {
+        //图片处理
         var fd = new FormData();
         var files = document.querySelector('input[name="files"]').files;
         for (var i=0; i<files.length; i++) {
             fd.append("img", files[i]);
         }
 
+        //复选框类型处理
+        var temp=" ";
+        for(attr in $scope.movie.type){
+            temp +=$scope.movie.type[attr]+" "
+        }
+        $scope.movie.type = temp.toString();
+
         //上传图片
         $http({
             method: 'POST',
-            url:'http://localhost/movie/uploadImg',
+            url:'http://localhost/upload/movie',
             data:fd,
             headers: {'Content-Type':undefined},
             transformRequest: angular.identity
         }).then(function successCallback(res) {
             var ob = JSON.parse(JSON.stringify(res.data));
-            if("success"==ob.msg&&ob.movieImg!=null) {
-                console.log("电影图片上传成功");
+            $scope.movie.img = ob.data;
+            console.log("电影图片：" + $scope.movie.img);
+
+            if(200==ob.code) {
                 //上传电影信息
                 $http({
                     method: 'POST',
-                    url:'http://localhost/movie/upload',
+                    url:'http://localhost/movie',
                     data:$.param($scope.movie),
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
                 }).then(function successCallback(res) {
-                    if("success"==ob.msg) {
-                        console.log("电影信息上传成功");
-                        $('#admin-alert').modal()
+                    var ob = JSON.parse(JSON.stringify(res.data));
 
+                    if(200==ob.code) {
+                        $scope.message = ob.data;
+                        $('#admin-alert').modal()
+                    }else {
+                        $scope.message="电影上传失败";
+                        $('#admin-alert').modal()
                     }
+
                 }, function errorCallback(res) {
-                    console.log("上传失败");
+                    $scope.message="上传失败";
+                    $('#admin-alert').modal()
                     console.log(res);
                 })
             }
         },function errorCallback(res) {
-            console.log("图片上传失败");
+            $scope.message = "图片上传失败";
             console.log(res);
         })
 
@@ -72,221 +68,54 @@ app.controller('upMovieCtrl',function ($scope, $http) {
 });
 
 /**
- * 电影
+ * 上传演员
  */
-app.controller('moviesCtrl',function ($scope, $http){
-    console.log("查询电影")
+app.controller('upActorCtrl',function ($scope, $http) {
+    //收集演员信息
+    $scope.actor = {};
 
-    var postData = {
-        pageIndex: 1,
-        pageSize: 12,
-        hasNextPage: true,
-        hasPreviousPage:false
-    };
+    $scope.uploadActor=function () {
+        var fd = new FormData();
+        var files = document.querySelector('input[name="files"]').files;
+        for (var i=0; i<files.length; i++) {
+            fd.append("img", files[i]);
+        }
 
-    GetAllMovies();
-    changeClass(postData.pageIndex);
-
-    /**
-     * 获取电影信息
-     * @constructor
-     */
-    function GetAllMovies() {
+        //传图
         $http({
             method: 'POST',
-            url: 'http://localhost/movie/all',
-            data: $.param(postData),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            url:'http://localhost/upload/actor',
+            data:fd,
+            headers: {'Content-Type':undefined},
+            transformRequest: angular.identity
         }).then(function successCallback(res) {
-            console.log(res.data);
-            //电影数据
-            $scope.movieList = res.data.list;
-            //设置page数量
-            $scope.pageNums = res.data.navigatepageNums;
-            //是否第一页最后一页
-            postData.hasNextPage = res.data.hasNextPage;
-            postData.hasPreviousPage = res.data.hasPreviousPage;
+            var ob = JSON.parse(JSON.stringify(res.data));
+            $scope.actor.img = ob.data;
+            console.log($scope.actor.img)
 
-        }, function errorCallback(res) {
-            console.log(res);
-        });
-    }
+            //传信息
+            $http({
+                method: 'POST',
+                url:'http://localhost/actor',
+                data:$.param($scope.actor),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            }).then(function successCallback(res) {
+                var ob = JSON.parse(JSON.stringify(res.data));
 
-    /**
-     * 按名字查询电影
-     * @returns {null}
-     */
-    $scope.selectMovieName=function () {
-        $http({
-            method: 'GET',
-            url: 'http://localhost/movie/name_' + $scope.movieName,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).then(function successCallback(res) {
-            //电影数据
-            $scope.movieList = res.data.list;
-            //设置page数量
-            $scope.pageNums = res.data.navigatepageNums;
-            //是否第一页最后一页
-            postData.hasNextPage = res.data.hasNextPage;
-            postData.hasPreviousPage = res.data.hasPreviousPage;
+                if(200==ob.code) {
+                    $scope.message = ob.data;
+                    $('#actor-alert').modal()
+                }else {
+                    $scope.message = "信息上传失败";
+                    $('#actor-alert').modal()
+                }
+            },function errorCallback(res) {
+                console.log(res)
+            })
+            
         },function errorCallback(res) {
+            $scope.message = "图片上传失败";
             console.log(res);
-        });
-    }
-
-    /**
-     * 删除电影
-     * @param id
-     */
-    $scope.deletemovie=function (id) {
-        $('#movie-confirm').modal({
-            relatedTarget: this,
-            onConfirm: function(options) {
-                $http({
-                    method:'DELETE',
-                    url: 'http://localhost/movie/delete_'+id,
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                }).then(function successCallback(res) {
-                    var ob = JSON.parse(JSON.stringify(res.data));
-                    if("success"==ob.msg) {
-                        console.log("删除成功");
-                        $('#movie-alert').modal();
-                        GetAllMovies();
-                    }
-                },function errorCallback(res) {
-                    console.log(res);
-                })
-            },
-            // closeOnConfirm: false,
-            onCancel: function() {
-
-            }
-        });
-    }
-    
-    //选择页码
-    $scope.changePage=function (num) {
-
-        if(num==0) {
-            if(postData.hasPreviousPage) {
-                changeClass(--postData.pageIndex)
-                GetAllMovies();
-            }
-        }
-        else if(num==999) {
-            if(postData.hasNextPage) {
-                changeClass(++postData.pageIndex);
-                GetAllMovies();
-            }
-
-        }
-        else {
-            postData.pageIndex = num;
-            changeClass(postData.pageIndex);
-            GetAllMovies();
-        }
-    }
-
-    //选中的页码变局域蓝
-    function changeClass(num) {
-        $scope.show = num;
-    }
-
-});
-
-/**
- * 评论
- */
-app.controller('remarkCtrl',function ($scope, $http) {
-    var postData = {
-        pageIndex: 1,
-        pageSize: 6,
-        hasNextPage: true,
-        hasPreviousPage:false
-    };
-    GetAllRemarks();
-
-    /**
-     * 获取评论
-     * @constructor
-     */
-    function GetAllRemarks() {
-        $http({
-            method: 'POST',
-            url: 'http://localhost/remark/all',
-            data: $.param(postData),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).then(function successCallback(res) {
-            console.log(res.data.list)
-            //评论数据
-            $scope.remarkList = res.data.list;
-            //设置page数量
-            $scope.pageNums = res.data.navigatepageNums;
-            //是否第一页最后一页
-            postData.hasNextPage = res.data.hasNextPage;
-            postData.hasPreviousPage = res.data.hasPreviousPage;
-        },function errorCallback(res) {
-            console.log(res);
-        });
-    }
-
-    //选择页码
-    $scope.changePage=function (num) {
-
-        if(num==0) {
-            if(postData.hasPreviousPage) {
-                changeClass(--postData.pageIndex)
-                GetAllRemarks();
-            }
-        }
-        else if(num==999) {
-            if(postData.hasNextPage) {
-                changeClass(++postData.pageIndex);
-                GetAllRemarks();
-            }
-
-        }
-        else {
-            postData.pageIndex = num;
-            changeClass(postData.pageIndex);
-            GetAllRemarks();
-        }
-    }
-
-    //选中的页码变局域蓝
-    function changeClass(num) {
-        $scope.show = num;
-    }
-
-    /**
-     * 删除评论
-     * @param id
-     */
-    $scope.deleteremark=function (id) {
-        console.log(id)
-
-        $('#delete-confirm').modal({
-            relatedTarget: this,
-            onConfirm: function(options) {
-                $http({
-                    method:'DELETE',
-                    url: 'http://localhost/remark/delete_'+id,
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                }).then(function successCallback(res) {
-                    var ob = JSON.parse(JSON.stringify(res.data));
-                    if("success"==ob.msg) {
-                        $('#remark-alert').modal();
-                        GetAllRemarks();
-                    }
-                },function errorCallback(res) {
-                    console.log(res);
-                })
-            },
-            // closeOnConfirm: false,
-            onCancel: function() {
-
-            }
-        });
-
+        })
     }
 })
