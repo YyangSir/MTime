@@ -38,11 +38,11 @@ myApp.controller('movieCtrl',function ($scope,$http) {
         }).then(function successCallback(res) {
             var ob = JSON.parse(JSON.stringify(res.data));
             if(200==ob.code) {
-                //演员数据
-                $scope.actorList = ob.data.list;
+                window.sessionStorage.setItem("actorId", ob.data.list[0].actorid);
+                window.location.href = 'actor-info';
             }else {
                 $scope.message = ob.message;
-                $('#actors-alert').modal()
+                $('#actor-alert').modal()
             }
 
         },function errorCallback(res) {

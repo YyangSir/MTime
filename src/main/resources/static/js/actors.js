@@ -63,7 +63,7 @@ myApp.controller('actorsCtrl',function ($scope, $http){
     }
 
     /**
-     * 去评论页面
+     * 去信息页面
      * @param id
      */
     $scope.info=function (id) {
@@ -113,7 +113,6 @@ myApp.controller('actorInfoCtrl',function ($scope, $http){
             $scope.story = ob.data.story;
 
         }
-
     },function errorCallback(res) {
         console.log(res);
     })

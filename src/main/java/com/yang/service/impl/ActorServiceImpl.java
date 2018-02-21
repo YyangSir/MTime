@@ -28,7 +28,7 @@ public class ActorServiceImpl extends AbstractService<Actor> implements ActorSer
     public List<Actor> selectByName(String name) {
         List<Actor> actors = actorMapper.selectByName(name);
         if (null == actors || actors.size() == 0) {
-            throw new ServiceException("没有此演员信息");
+            throw new ServiceException("此演员信息未收录");
         }
         return actors;
     }

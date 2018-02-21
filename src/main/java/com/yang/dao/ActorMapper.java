@@ -12,7 +12,7 @@ public interface ActorMapper extends Mapper<Actor> {
 	 * @param name
 	 * @return
 	 */
-	@Select("select nameCn,nameEn,img from actor" +
+	@Select("select * from actor" +
 			" where nameCn like concat(concat('%',#{name}),'%') " +
 			"or nameEn like concat(concat('%',#{name}),'%')")
 	List<Actor> selectByName(String name);

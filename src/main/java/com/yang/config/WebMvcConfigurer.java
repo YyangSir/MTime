@@ -90,6 +90,15 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         });
     }
 
+    //解决跨域问题
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedHeaders("*")
+                .allowedMethods("GET", "POST", "DELETE", "PUT");
+    }
+
     //添加拦截器
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

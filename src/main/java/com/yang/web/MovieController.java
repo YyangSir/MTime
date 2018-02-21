@@ -77,6 +77,7 @@ public class MovieController {
     public Result recentList(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "8") Integer size) {
         System.out.println("page:" + page + "," + "size:" + size);
         //获取时间上个月到当前时间
+        //Calendar.MONTH 从0开始计数 即Calendar.MONTH+1为当前月
         Calendar c = Calendar.getInstance();
         String endTime = String.valueOf(c.get(Calendar.YEAR))+"-"+
                 (c.get(Calendar.MONTH)+1)+"-"+
@@ -88,7 +89,7 @@ public class MovieController {
 
         Condition condition = new Condition(Movie.class);
         condition.setOrderByClause("movieId desc");
-        condition.createCriteria().andBetween("time", startTime, endTime);
+        condition.createCriteria().andBetween("time", "2018-01-01", "2018-02-20");
 
         PageInfo pageInfo = new PageInfo(selectMovieList(page, size, condition));
         return ResultGenerator.genSuccessResult(pageInfo);
