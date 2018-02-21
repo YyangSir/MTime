@@ -1,3 +1,4 @@
+var k_protocol = window.location.protocol;
 /**
  * 电影
  */
@@ -21,7 +22,7 @@ app.controller('moviesCtrl',function ($scope, $http){
     function GetAllMovies() {
         $http({
             method: 'GET',
-            url: 'http://localhost/movie?page='+postData.pageIndex+"&size="+postData.pageSize,
+            url: k_protocol+'/movie?page='+postData.pageIndex+"&size="+postData.pageSize,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function successCallback(res) {
             var ob = JSON.parse(JSON.stringify(res.data));
@@ -46,7 +47,7 @@ app.controller('moviesCtrl',function ($scope, $http){
     $scope.selectMovieName=function () {
         $http({
             method: 'GET',
-            url: 'http://localhost/movieName/' + $scope.movieName,
+            url: k_protocol+'/movieName/' + $scope.movieName,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function successCallback(res) {
             var ob = JSON.parse(JSON.stringify(res.data));
@@ -73,7 +74,7 @@ app.controller('moviesCtrl',function ($scope, $http){
             onConfirm: function(options) {
                 $http({
                     method:'DELETE',
-                    url: 'http://localhost/movie/delete/'+id,
+                    url: k_protocol+'/movie/delete/'+id,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).then(function successCallback(res) {
                     var ob = JSON.parse(JSON.stringify(res.data));
@@ -147,7 +148,7 @@ app.controller('remarkCtrl',function ($scope, $http) {
     function GetAllRemarks() {
         $http({
             method: 'GET',
-            url: 'http://localhost/remark/all?page='+postData.pageIndex+"&size="+postData.pageSize,
+            url: k_protocol+'/remark/all?page='+postData.pageIndex+"&size="+postData.pageSize,
             data: $.param(postData),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function successCallback(res) {
@@ -210,7 +211,7 @@ app.controller('remarkCtrl',function ($scope, $http) {
             onConfirm: function(options) {
                 $http({
                     method:'DELETE',
-                    url: 'http://localhost/remark/delete_'+id,
+                    url: k_protocol+'/remark/delete_'+id,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).then(function successCallback(res) {
                     var ob = JSON.parse(JSON.stringify(res.data));
@@ -252,7 +253,7 @@ app.controller('actorsCtrl',function ($scope, $http) {
     function GetAllActors() {
         $http({
             method: 'GET',
-            url: 'http://localhost/actor?page='+postData.pageIndex+"&size="+postData.pageSize,
+            url: k_protocol+'/actor?page='+postData.pageIndex+"&size="+postData.pageSize,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function successCallback(res) {
             var ob = JSON.parse(JSON.stringify(res.data));
@@ -276,7 +277,7 @@ app.controller('actorsCtrl',function ($scope, $http) {
     $scope.selectActorName=function () {
         $http({
             method: 'GET',
-            url: 'http://localhost/actorName/' + $scope.actorName,
+            url: k_protocol+'/actorName/' + $scope.actorName,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function successCallback(res) {
             var ob = JSON.parse(JSON.stringify(res.data));
@@ -311,7 +312,7 @@ app.controller('actorsCtrl',function ($scope, $http) {
             onConfirm: function(options) {
                 $http({
                     method:'DELETE',
-                    url: 'http://localhost/actor/delete'+id,
+                    url: k_protocol+'/actor/delete'+id,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).then(function successCallback(res) {
                     var ob = JSON.parse(JSON.stringify(res.data));
@@ -382,7 +383,7 @@ app.controller('usersCtrl',function ($scope, $http) {
     function GetAllUsers() {
         $http({
             method: 'GET',
-            url: 'http://localhost/user?page='+postData.pageIndex+"&size="+postData.pageSize,
+            url:k_protocol+ '/user?page='+postData.pageIndex+"&size="+postData.pageSize,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function successCallback(res) {
             var ob = JSON.parse(JSON.stringify(res.data));
@@ -404,7 +405,7 @@ app.controller('usersCtrl',function ($scope, $http) {
     $scope.selectUserName=function () {
         $http({
             method: 'GET',
-            url: 'http://localhost/user/name/' + $scope.userName,
+            url:k_protocol+ '/user/name/' + $scope.userName,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (res) {
             var ob = JSON.parse(JSON.stringify(res.data));

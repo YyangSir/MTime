@@ -1,3 +1,4 @@
+var k_protocol = window.location.protocol;
 /**
  * 管理员登陆
  */
@@ -6,7 +7,7 @@ app.controller('adminLoginCtrl',function ($scope, $http) {
     $scope.login=function () {
         $http({
             method: 'POST',
-            url: 'http://localhost/admin/login',
+            url: k_protocol+'/admin/login',
             data:$.param($scope.admin),
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(function successCallback(res) {
@@ -41,7 +42,7 @@ app.controller('adminInfoCtrl', function ($scope, $http) {
         window.sessionStorage.removeItem("admin-name");
         $http({
             method: 'GET',
-            url: 'http://localhost/admin/exit',
+            url: k_protocol+'/admin/exit',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         })
         //返回登陆页面

@@ -1,3 +1,4 @@
+var k_protocol = window.location.protocol;
 /**
  * 我的界面
  * 查询用户信息
@@ -11,7 +12,7 @@ myApp.controller('userCtrl',function ($scope,$http) {
     function GetUserInfo() {
         $http({
             method: 'GET',
-            url: 'http://localhost/user/'+0+window.sessionStorage.getItem("userid"),
+            url: k_protocol+ '/user/'+0+window.sessionStorage.getItem("userid"),
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(function successCallback(res) {
             var ob = JSON.parse(JSON.stringify(res.data));
@@ -40,7 +41,7 @@ myApp.controller('userCtrl',function ($scope,$http) {
 
         $http({
             method: 'POST',
-            url:'http://localhost/upload/user',
+            url:k_protocol+'/upload/user',
             data:fd,
             headers: {'Content-Type':undefined},
             transformRequest: angular.identity
@@ -69,7 +70,7 @@ myApp.controller('userCtrl',function ($scope,$http) {
 myApp.controller('myRemarkCtrl',function ($scope,$http) {
     $http({
         method: 'GET',
-        url: 'http://localhost/remark/my/'+0+window.sessionStorage.getItem("userid"),
+        url: k_protocol+'/remark/my/'+0+window.sessionStorage.getItem("userid"),
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     }).then(function successCallback(res) {
         var ob = JSON.parse(JSON.stringify(res.data));
@@ -98,7 +99,7 @@ myApp.controller('headerCtrl', function ($scope,$http) {
                 window.sessionStorage.clear();
                 $http({
                     method: 'GET',
-                    url: 'http://localhost/user/exit',
+                    url: k_protocol+'/user/exit',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
                 })
                 console.log("退出登陆")

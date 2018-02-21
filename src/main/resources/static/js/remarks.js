@@ -1,4 +1,4 @@
-
+var k_protocol = window.location.protocol;
 /**
  * 电影详细信息
  */
@@ -6,7 +6,7 @@ myApp.controller('movieCtrl',function ($scope,$http) {
 
     $http({
         method: 'GET',
-        url: 'http://localhost/movie/'+0+window.sessionStorage.getItem("movieId"),
+        url: k_protocol+'/movie/'+0+window.sessionStorage.getItem("movieId"),
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     }).then(function successCallback(res) {
         var ob = JSON.parse(JSON.stringify(res.data));
@@ -33,7 +33,7 @@ myApp.controller('movieCtrl',function ($scope,$http) {
     $scope.actorInfo=function (name) {
         $http({
             method: 'GET',
-            url: 'http://localhost/actorName/' + name,
+            url: k_protocol+'/actorName/' + name,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function successCallback(res) {
             var ob = JSON.parse(JSON.stringify(res.data));
@@ -71,7 +71,7 @@ myApp.controller('remarkCtrl',function ($scope,$http) {
             "userId":userId}
         $http({
             method: 'POST',
-            url:'http://localhost/remark',
+            url:k_protocol+'/remark',
             data:$.param(remark),
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(function successCallback(res) {
@@ -96,7 +96,7 @@ myApp.controller('remarkCtrl',function ($scope,$http) {
     function getMovieRemark() {
         $http({
             method:'GET',
-            url:'http://localhost/remark/'+0+window.sessionStorage.getItem("movieId"),
+            url:k_protocol+'/remark/'+0+window.sessionStorage.getItem("movieId"),
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(function successCallback(res) {
             var ob = JSON.parse(JSON.stringify(res.data));

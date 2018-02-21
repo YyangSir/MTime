@@ -1,3 +1,4 @@
+var k_protocol = window.location.protocol;
 /**
  * 登陆提交
  */
@@ -7,7 +8,7 @@ app.controller('loginCtrl', function($scope, $http) {
     $scope.login=function () {
         $http({
             method: 'POST',
-            url: 'http://localhost/user/login',
+            url: k_protocol+'/user/login',
             data:$.param($scope.user),
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(function successCallback(res) {
@@ -50,7 +51,7 @@ app.controller('registerCtrl',function ($scope, $http) {
         if(isName){
             $http({
                 method: 'POST',
-                url: 'http://localhost/user',
+                url: k_protocol+'/user',
                 data:$.param($scope.user),
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             }).then(function successCallback(res) {
@@ -76,7 +77,7 @@ app.controller('registerCtrl',function ($scope, $http) {
         console.log(newValue)
         $http({
             method: 'POST',
-            url: 'http://localhost/user/checkname',
+            url: k_protocol+'/user/checkname',
             data:$.param($scope.user),
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(function successCallback(res) {

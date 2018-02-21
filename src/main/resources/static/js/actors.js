@@ -1,5 +1,7 @@
+var k_protocol = window.location.protocol;
 
 myApp.controller('actorsCtrl',function ($scope, $http){
+
     var postData = {
         pageIndex: 1,
         pageSize: 12,
@@ -12,7 +14,7 @@ myApp.controller('actorsCtrl',function ($scope, $http){
     function GetAllActors() {
         $http({
             method: 'GET',
-            url: 'http://localhost/actor?page='+postData.pageIndex+"&size="+postData.pageSize,
+            url: k_protocol+'/actor?page='+postData.pageIndex+"&size="+postData.pageSize,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function successCallback(res) {
             var ob = JSON.parse(JSON.stringify(res.data));
@@ -41,7 +43,7 @@ myApp.controller('actorsCtrl',function ($scope, $http){
         }
         $http({
             method: 'GET',
-            url: 'http://localhost/actorName/' + $scope.name,
+            url: k_protocol+'/actorName/' + $scope.name,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function successCallback(res) {
             var ob = JSON.parse(JSON.stringify(res.data));
@@ -76,20 +78,20 @@ myApp.controller('actorsCtrl',function ($scope, $http){
         if(num==0) {
             if(postData.hasPreviousPage) {
                 changeClass(--postData.pageIndex)
-                GetAllMovies();
+                GetAllActors();
             }
         }
         else if(num==999) {
             if(postData.hasNextPage) {
                 changeClass(++postData.pageIndex);
-                GetAllMovies();
+                GetAllActors();
             }
 
         }
         else {
             postData.pageIndex = num;
             changeClass(postData.pageIndex);
-            GetAllMovies();
+            GetAllActors();
         }
     }
 
@@ -102,7 +104,7 @@ myApp.controller('actorsCtrl',function ($scope, $http){
 myApp.controller('actorInfoCtrl',function ($scope, $http){
     $http({
         method: 'GET',
-        url: 'http://localhost/actor/'+0+window.sessionStorage.getItem("actorId"),
+        url: k_protocol+'/actor/'+0+window.sessionStorage.getItem("actorId"),
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     }).then(function successCallback(res) {
         var ob = JSON.parse(JSON.stringify(res.data));

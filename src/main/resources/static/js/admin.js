@@ -1,4 +1,4 @@
-
+var k_protocol = window.location.protocol;
 /**
  * 上传电影
  */
@@ -26,7 +26,7 @@ app.controller('upMovieCtrl',function ($scope, $http) {
         //上传图片
         $http({
             method: 'POST',
-            url:'http://localhost/upload/movie',
+            url:k_protocol+'/upload/movie',
             data:fd,
             headers: {'Content-Type':undefined},
             transformRequest: angular.identity
@@ -39,7 +39,7 @@ app.controller('upMovieCtrl',function ($scope, $http) {
                 //上传电影信息
                 $http({
                     method: 'POST',
-                    url:'http://localhost/movie',
+                    url:k_protocol+'/movie',
                     data:$.param($scope.movie),
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
                 }).then(function successCallback(res) {
@@ -84,7 +84,7 @@ app.controller('upActorCtrl',function ($scope, $http) {
         //传图
         $http({
             method: 'POST',
-            url:'http://localhost/upload/actor',
+            url:k_protocol+'/upload/actor',
             data:fd,
             headers: {'Content-Type':undefined},
             transformRequest: angular.identity
@@ -96,7 +96,7 @@ app.controller('upActorCtrl',function ($scope, $http) {
             //传信息
             $http({
                 method: 'POST',
-                url:'http://localhost/actor',
+                url:k_protocol+'/actor',
                 data:$.param($scope.actor),
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             }).then(function successCallback(res) {

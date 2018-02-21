@@ -1,3 +1,4 @@
+var k_protocol = window.location.protocol;
 /**
  * 电影列表
  */
@@ -19,7 +20,7 @@ myApp.controller('moviesCtrl',function ($scope, $http) {
     function GetAllMovies() {
         $http({
             method: 'GET',
-            url: 'http://localhost/movie?page='+postData.pageIndex+"&size="+postData.pageSize,
+            url: k_protocol+'/movie?page='+postData.pageIndex+"&size="+postData.pageSize,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function successCallback(res) {
             var ob = JSON.parse(JSON.stringify(res.data));
@@ -49,7 +50,7 @@ myApp.controller('moviesCtrl',function ($scope, $http) {
         }
         $http({
             method: 'GET',
-            url: 'http://localhost/movieName/' + $scope.movieName,
+            url:k_protocol+ '/movieName/' + $scope.movieName,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function successCallback(res) {
             var ob = JSON.parse(JSON.stringify(res.data));

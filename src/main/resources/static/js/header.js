@@ -1,3 +1,4 @@
+var k_protocol = window.location.protocol;
 
 myApp.controller('headerCtrl', function($scope, $http){
     isLogin();
@@ -17,7 +18,7 @@ myApp.controller('headerCtrl', function($scope, $http){
         window.sessionStorage.removeItem("userid");
         $http({
             method: 'GET',
-            url: 'http://localhost/user/exit',
+            url: k_protocol+'/user/exit',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         })
         isLogin();
