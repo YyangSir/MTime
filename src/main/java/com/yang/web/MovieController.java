@@ -88,8 +88,8 @@ public class MovieController {
         System.out.println(startTime+" "+endTime);
 
         Condition condition = new Condition(Movie.class);
-        condition.setOrderByClause("movieId desc");
-        condition.createCriteria().andBetween("time", "2018-01-01", "2018-02-20");
+        condition.setOrderByClause("time desc");
+        condition.createCriteria().andBetween("time", startTime, endTime);
 
         PageInfo pageInfo = new PageInfo(selectMovieList(page, size, condition));
         return ResultGenerator.genSuccessResult(pageInfo);
