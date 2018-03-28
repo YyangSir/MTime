@@ -2,9 +2,10 @@ package com.yang.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.List;
 
-public class User {
+public class User implements Serializable{
     @Id
     @Column(name = "userId")
     private Integer userid;

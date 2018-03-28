@@ -31,6 +31,14 @@ public class RouteController {
 	}
 
 	/**
+	 * 经典电影
+	 */
+	@RequestMapping("/classic-list")
+	public String toclassic() {
+		return "classic-list";
+	}
+
+	/**
 	 * 去演员列表
 	 * @return
 	 */

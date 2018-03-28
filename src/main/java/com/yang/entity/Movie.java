@@ -26,6 +26,8 @@ public class Movie {
 
     private String time;
 
+    private int score;
+
     @Override
     public String toString() {
         return "Movie{" +
@@ -41,6 +43,13 @@ public class Movie {
                 '}';
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     /**
      * @return movieId

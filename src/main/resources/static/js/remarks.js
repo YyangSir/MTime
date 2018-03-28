@@ -4,6 +4,7 @@ var k_protocol = window.location.protocol;
  */
 myApp.controller('movieCtrl',function ($scope,$http) {
 
+
     $http({
         method: 'GET',
         url: k_protocol+'/movie/'+0+window.sessionStorage.getItem("movieId"),
@@ -20,6 +21,11 @@ myApp.controller('movieCtrl',function ($scope,$http) {
             $scope.story = ob.data.story;
             // $scope.actors = ob.data.actors;
             $scope.actors=ob.data.actors.split(" ")
+
+            $('#readOnly-demo').raty({
+                readOnly: true,
+                score: 3.5
+            });
         }
 
     },function errorCallback(res) {
@@ -65,8 +71,10 @@ myApp.controller('remarkCtrl',function ($scope,$http) {
      * 添加评论
      */
     $scope.remark=function () {
+        console.log('评论分数 ' + s);
         var remark= {
             "content":$scope.content,
+            "score":s,
             "movieId":movieId,
             "userId":userId}
         $http({

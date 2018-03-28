@@ -10,11 +10,13 @@
     <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.ie8polyfill.min.js"></script>
     <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.widgets.helper.min.js"></script>
 
+    <script type="text/javascript" src="rating/jquery.raty.min.js"></script>
     <script>
         var myApp=angular.module('remarkApp', []);
     </script>
     <script type="text/javascript" src="/js/remarks.js"></script>
     <script type="text/javascript" src="/js/header.js"></script>
+
 </head>
 <body ng-app="remarkApp">
 <!--导航-->
@@ -81,11 +83,15 @@
             <p>{{type}} {{moviesTime}}上映</p>
             <div class="am-g">
                 <div class="am-u-sm-2">
+                    <p>评 分:</p>
                     <p>导 演:</p>
                     <p>演 员:</p>
                     <p>剧 情:</p>
                 </div>
                 <div class="am-u-sm-10">
+                    <div class="demo">
+                        <div id="readOnly-demo"></div>
+                    </div>
                     <p>{{director}}</p>
                     <span ng-repeat="actor in actors"><a href="" ng-click="actorInfo(actor)">{{actor}} </a></span>
                     <p>{{story}}</p>
@@ -116,7 +122,10 @@
         <form class="am-form">
             <fieldset>
                 <div class="am-form-group">
-                    <label for="doc-ta-1">表达你对想法(200字)</label>
+                    <label for="doc-ta-1">
+                        表达你对想法(200字)
+                        <div id="click-demo"></div>
+                    </label>
                     <textarea class="" rows="5" id="doc-ta-1" ng-model="content"></textarea>
                 </div>
 
@@ -184,5 +193,20 @@
         </div>
     </div>
 </div>
+
+<script>
+    var s=0;
+    $(function() {
+        $.fn.raty.defaults.path = 'rating/img';
+
+        $('#click-demo').raty({
+            score: 0,
+            click: function(score) {
+                s = score;
+            }
+        });
+    });
+
+</script>
 </body>
 </html>

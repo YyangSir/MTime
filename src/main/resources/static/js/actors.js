@@ -49,7 +49,7 @@ myApp.controller('actorsCtrl',function ($scope, $http){
             var ob = JSON.parse(JSON.stringify(res.data));
             if(200==ob.code) {
                 //电影数据
-                $scope.movieList = ob.data.list;
+                $scope.actorList = ob.data.list;
                 //设置page数量
                 $scope.pageNums = ob.data.navigatepageNums;
                 //是否第一页最后一页
