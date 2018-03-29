@@ -23,11 +23,12 @@ public class RemarkController {
     private RemarkService remarkService;
 
     @PostMapping
-    public Result add(String content, Integer movieId, Integer userId) {
+    public Result add(String content,Integer score, Integer movieId, Integer userId) {
         System.out.println("评论"+content+" "+
+                "评分"+score+
                 " 电影："+movieId.intValue()+
                 " 用户："+userId.intValue());
-        remarkService.addRemark(content, movieId.intValue(), userId.intValue());
+        remarkService.addRemark(content,score.floatValue(), movieId.intValue(), userId.intValue());
         return ResultGenerator.genSuccessResult();
     }
 

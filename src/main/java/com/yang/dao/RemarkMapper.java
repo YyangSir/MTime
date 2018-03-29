@@ -51,4 +51,12 @@ public interface RemarkMapper  {
 	 */
 	@Select("select * from remark order by time desc")
 	List<Remark> selectAll();
+
+	/**
+	 * 统计电影评论数量
+	 * @param id
+	 * @return
+	 */
+	@Select("select count(*) from umr where movieId=#{id}")
+	int count(@Param("id") int movieId);
 }

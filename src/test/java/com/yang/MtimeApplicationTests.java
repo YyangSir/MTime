@@ -9,6 +9,7 @@ import com.yang.service.MovieService;
 import com.yang.service.RemarkService;
 import com.yang.service.UserService;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import tk.mybatis.mapper.entity.Condition;
 
@@ -22,6 +23,8 @@ import java.util.List;
 public class MtimeApplicationTests extends Tester{
 	@Resource
 	private UserService userService;
+	@Autowired
+	private RemarkService remarkService;
 	@Test
 	public void login() {
 		Condition condition = new Condition(User.class);
@@ -33,6 +36,6 @@ public class MtimeApplicationTests extends Tester{
 
 	@Test
 	public void rdeisTest() {
-
+		remarkService.addRemark("测试评分",2,59,1);
 	}
 }

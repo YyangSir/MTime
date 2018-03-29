@@ -13,10 +13,11 @@ public interface RemarkService{
 	/**
 	 * 插入评论
 	 * @param remarkContent
+	 * @param score
 	 * @param movieId
 	 * @param userId
 	 */
-	void addRemark(String remarkContent,int movieId,int userId);
+	void addRemark(String remarkContent,float score,int movieId,int userId);
 
 	/**
 	 * 查询电影的评论

@@ -26,7 +26,7 @@ public class Movie {
 
     private String time;
 
-    private int score;
+    private float rating;
 
     @Override
     public String toString() {
@@ -43,12 +43,12 @@ public class Movie {
                 '}';
     }
 
-    public int getScore() {
-        return score;
+    public float getRating() {
+        return rating;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     /**

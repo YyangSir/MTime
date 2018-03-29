@@ -13,6 +13,7 @@
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="img" jdbcType="VARCHAR" property="img" />
     <result column="time" jdbcType="VARCHAR" property="time" />
+    <result column="rating" jdbcType="FLOAT" property="rating"/>
 
     <collection property="remarks" ofType="com.yang.entity.Remark">
       <id column="remarkId" property="remarkid" jdbcType="INTEGER"/>
