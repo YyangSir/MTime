@@ -2,21 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>演员信息</title>
+    <title>实时票房</title>
     <link href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet"/>
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/angular.js/1.6.3/angular.min.js"></script>
     <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
-    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.ie8polyfill.min.js"></script>
-    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.widgets.helper.min.js"></script>
 
     <script>
-        var myApp=angular.module('actorInfoApp', []);
+        var myApp=angular.module('boxApp', []);
     </script>
-    <script type="text/javascript" src="/js/actors.js"></script>
+
+    <script type="text/javascript" src="/js/box-office.js"></script>
     <script type="text/javascript" src="/js/header.js"></script>
 </head>
-<body ng-app="actorInfoApp">
+<body ng-app="boxApp">
 <!--导航-->
 <header class="am-topbar am-topbar-fixed-top" ng-controller="headerCtrl">
     <div class="am-container">
@@ -27,10 +26,11 @@
 
         <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
             <ul class="am-nav am-nav-pills am-topbar-nav">
-                <li ><a href="/index">首页</a></li>
+                <li><a href="/index">首页</a></li>
                 <li><a href="/tolist">电影列表</a></li>
+                <!--<li><a href="/classic-list">经典影片</a></li>-->
                 <li><a href="/actor-list">演员列表</a></li>
-                <li><a href="/box-office">实时票房</a></li>
+                <li class="am-active"><a href="#">实时票房</a></li>
             </ul>
 
             <div class="{{passport}}">
@@ -54,59 +54,41 @@
                         <span class="am-icon-sign-out"></span> 退出
                     </button>
                 </div>
-                <div class="am-topbar-right" ng-click="myInfo()">
+                <div class="am-topbar-right" ng-click="myInfo()" >
                     <img src="http://ozqy003kk.bkt.clouddn.com/{{img}}" width="48px" class="am-img-thumbnail am-circle" style="margin-right: 10px"/>
                 </div>
             </div>
-
         </div>
     </div>
 </header>
 
-<div class="am-g" style="color:#FFF">
-    顶部留白
-</div>
+<!--实时票房-->
+<div class="am-container" ng-controller="boxCtrl">
+    <h1>实时票房 {{time}}</h1>
+    <table width="100%" class="am-table am-table-compact am-table-striped am-table-bordered am-table-radius tpl-table-black ">
+        <thead>
+        <tr>
+            <th>排行</th>
+            <th>影片</th>
+            <th>日票房（万）</th>
+            <th>票房占比</th>
+            <th>上映天数</th>
+            <th>累计票房（万）</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="even gradeC" ng-repeat="boxoffice in boxoffices">
+            <td>{{boxoffice.irank}}</td>
+            <td>{{boxoffice.movieName}}</td>
+            <td>{{boxoffice.boxOffice}}</td>
+            <td>{{boxoffice.boxPer}}%</td>
+            <td>{{boxoffice.movieDay}} 天</td>
+            <td>{{boxoffice.sumBoxOffice}}</td>
 
-<!--内容-->
-<div class="am-container">
-    <!--电影详细信息-->
-    <div class="am-g" ng-controller="actorInfoCtrl">
-        <!--电影海报-->
-        <div class="am-u-sm-4 ">
-            <img src="http://ozqy003kk.bkt.clouddn.com/{{img}}" width="290px"/>
-        </div>
-        <!--电影信息-->
-        <div class="am-u-sm-8">
-            <h1>{{namecn}}</h1>
-            <p style="font-size:25px;">{{nameen}}</p>
-            <div class="am-g">
-                <div class="am-u-sm-2">
-                    <p>人物传记:</p>
-                </div>
-                <div class="am-u-sm-10">
-                    <p>{{story}}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="am-g" style="color:#FFF">
-        留白
-    </div>
-
-
-</div>
-
-<!--弹窗-->
-<div class="am-modal am-modal-alert" tabindex="-1" id="remark-alert">
-    <div class="am-modal-dialog">
-        <div class="am-modal-bd">
-           已退出登录
-        </div>
-        <div class="am-modal-footer">
-            <span class="am-modal-btn">确定</span>
-        </div>
-    </div>
+        </tr>
+        <!-- more data -->
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

@@ -48,6 +48,15 @@ public class RouteController {
 	}
 
 	/**
+	 * 前往实时票房
+	 * @return
+	 */
+	@RequestMapping("box-office")
+	public String box_office() {
+		return "box-office";
+	}
+
+	/**
 	 * 查看演员信息
 	 * @return
 	 */
