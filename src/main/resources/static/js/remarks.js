@@ -22,9 +22,10 @@ myApp.controller('movieCtrl',function ($scope,$http) {
             // $scope.actors = ob.data.actors;
             $scope.actors=ob.data.actors.split(" ")
 
+
             $('#readOnly-demo').raty({
                 readOnly: true,
-                score: 3.5
+                score: ob.data.rating
             });
         }
 

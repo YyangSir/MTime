@@ -60,7 +60,7 @@ public class MovieController {
         System.out.println("page:" + page + "," + "size:" + size);
         //添加条件 按id倒序查询
         Condition condition = new Condition(Movie.class);
-        condition.setOrderByClause("movieId desc");
+        condition.setOrderByClause("time desc");
 
         PageInfo pageInfo = new PageInfo(selectMovieList(page, size, condition));
 
@@ -114,7 +114,7 @@ public class MovieController {
         System.out.println(startTime+" "+endTime);
 
         Condition condition = new Condition(Movie.class);
-        condition.setOrderByClause("movieId desc");
+        condition.setOrderByClause("time desc");
         condition.createCriteria().andBetween("time", "2017-12-01", "2018-02-01");
 
         PageInfo pageInfo = new PageInfo(selectMovieList(page, size, condition));

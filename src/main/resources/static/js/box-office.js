@@ -17,4 +17,13 @@ myApp.controller('boxCtrl', function ($scope, $http) {
     },function errorCallback(res){
         console.log(res);
     })
+
+    /**
+     * 按名字查询电影
+     * @returns {null}
+     */
+    $scope.selectMovieName=function (name){
+        console.log(name);
+
+    }
 });

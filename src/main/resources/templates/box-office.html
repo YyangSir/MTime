@@ -79,7 +79,7 @@
         <tbody>
         <tr class="even gradeC" ng-repeat="boxoffice in boxoffices">
             <td>{{boxoffice.irank}}</td>
-            <td>{{boxoffice.movieName}}</td>
+            <td><a href="" ng-click="selectMovieName(boxoffice.movieName)">{{boxoffice.movieName}}</a></td>
             <td>{{boxoffice.boxOffice}}</td>
             <td>{{boxoffice.boxPer}}%</td>
             <td>{{boxoffice.movieDay}} 天</td>
