@@ -5,7 +5,6 @@ package com.yang.config;
  */
 public final class ProjectConstant {
     public static final String BASE_PACKAGE = "com.yang";//项目基础包名称
-
     public static final String MODEL_PACKAGE = BASE_PACKAGE + ".entity";//Model所在包
     public static final String MAPPER_PACKAGE = BASE_PACKAGE + ".dao";//Mapper所在包
     public static final String SERVICE_PACKAGE = BASE_PACKAGE + ".service";//Service所在包
@@ -13,8 +12,6 @@ public final class ProjectConstant {
     public static final String CONTROLLER_PACKAGE = BASE_PACKAGE + ".route";//Controller所在包
 
     public static final String MAPPER_INTERFACE_REFERENCE = BASE_PACKAGE + ".mapper.Mapper";//Mapper插件基础接口的完全限定名
-
-
 
     //上传图片路径
     public static final String BASE_DISK_FOLDER = "E:/Java_project/";

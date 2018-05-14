@@ -27,6 +27,7 @@ public class MovieController {
 
     @PostMapping
     public Result add(Movie movie) {
+        movie.setRating((float) 3.521);
         movieService.save(movie);
         return ResultGenerator.genSuccessResult("电影信息上传成功");
     }
@@ -58,7 +59,7 @@ public class MovieController {
     @GetMapping
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         System.out.println("page:" + page + "," + "size:" + size);
-        //添加条件 按id倒序查询
+        //添加条件 按time倒序查询
         Condition condition = new Condition(Movie.class);
         condition.setOrderByClause("time desc");
 
@@ -89,7 +90,8 @@ public class MovieController {
 
         Condition condition = new Condition(Movie.class);
         condition.setOrderByClause("time desc");
-        condition.createCriteria().andBetween("time", "2017-12-01", "2018-02-01");
+//        condition.createCriteria().andBetween("time", startTime, endTime);
+        condition.createCriteria().andBetween("time", "2018-02-01", "2018-03-30");
 
         PageInfo pageInfo = new PageInfo(selectMovieList(page, size, condition));
         return ResultGenerator.genSuccessResult(pageInfo);
@@ -115,7 +117,7 @@ public class MovieController {
 
         Condition condition = new Condition(Movie.class);
         condition.setOrderByClause("time desc");
-        condition.createCriteria().andBetween("time", "2017-12-01", "2018-02-01");
+        condition.createCriteria().andBetween("time", "2018-04-01", endTime);
 
         PageInfo pageInfo = new PageInfo(selectMovieList(page, size, condition));
 

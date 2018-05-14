@@ -4,7 +4,6 @@ var k_protocol = window.location.protocol;
  */
 myApp.controller('movieCtrl',function ($scope,$http) {
 
-
     $http({
         method: 'GET',
         url: k_protocol+'/movie/'+0+window.sessionStorage.getItem("movieId"),

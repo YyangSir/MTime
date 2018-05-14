@@ -54,7 +54,7 @@ public interface RemarkMapper  {
 
 	/**
 	 * 统计电影评论数量
-	 * @param id
+	 * @param movieId
 	 * @return
 	 */
 	@Select("select count(*) from umr where movieId=#{id}")
