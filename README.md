@@ -1,7 +1,7 @@
 ﻿# MTime
 一个基于spring boot微服务架构的影评系统 （欢迎star）<br>
 spring boot真的简约方便因为约定大于配置的原则省去了很多杂乱的xml文件使整个项目都变的清爽了。部署到服务器也是非常简单的使用maven打包上传服务器后执行命令java -jar 项目包名.jar即可<br>
-到现在为止spring boot做的都只是替换spring mvc的作用，没有进行封装并不是真正意义上的微服务，后续将会改善。
+到现在为止spring boot做的都只是替换spring mvc的作用，没有进行封装并不是真正意义上的微服务，后续将会改。
 
 ---
 
@@ -16,13 +16,19 @@ spring boot真的简约方便因为约定大于配置的原则省去了很多杂
 * [web层](#web层)
 * [图片存储](#图片存储)
 * [前端及数据传输](#前端及数据传输)
+* [开发工具环境](#开发工具环境)
 * [服务器部署](#服务器部署)
 
 ## 项目内容
 项目分为用户和管理员两个模块<br>
 
- - 用户 注册登陆，浏览查询电影演员，发表评论及我的影评
- - 管理员 上传和删除电影，演员等信息
+ - 用户部分
+ 注册登陆
+ 浏览查询电影演员详细信息
+ 实时查看电影票房
+ 发表评论及我的影评
+ - 管理员部分
+ 上传和删除电影，演员等信息
 
 ### orm层
 
@@ -52,7 +58,13 @@ spring boot真的简约方便因为约定大于配置的原则省去了很多杂
  - 网络存储 
     使用七牛云作为图床存储图片 上传图片后将返回的图片地址存入数据库加上**外链默认域名**直接访问
 
+### 开发工具环境
 
+ - Intellij idea
+ - Potman
+ - chrome
+ - MySql 5.1
+ - jdk 1.8
 
 ### 服务器部署
 
@@ -80,5 +92,7 @@ url:k_protocol+'/user/xxx'
 
 ----------
 ## 技术选型&文档
-spring boot
-angularJs等
+借鉴[spring-boot-api-project-seed](https://github.com/lihengming/spring-boot-api-project-seed)快速搭建RESTful API项目
+spring boot<br>
+angularJs等<br>
+(待完善)
